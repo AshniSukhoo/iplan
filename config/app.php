@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'My Application',
+    'name' => 'iPlan',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Iplan\Providers\AppServiceProvider::class,
+        Iplan\Providers\AuthServiceProvider::class,
+        // Iplan\Providers\BroadcastServiceProvider::class,
+        Iplan\Providers\EventServiceProvider::class,
+        Iplan\Providers\RouteServiceProvider::class,
 
     ],
 
