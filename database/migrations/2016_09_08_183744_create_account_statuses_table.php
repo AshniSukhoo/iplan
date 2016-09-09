@@ -13,11 +13,17 @@ class CreateAccountStatusesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('account_statuses', function(Blueprint $table) {
+        Schema::create('account_statuses', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->string('status');
             $table->timestamps();
-		});
+        });
+        
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('account_status_id')
+                  ->references('id')
+                  ->on('account_statuses');
+        });
 	}
 
 	/**
@@ -27,7 +33,11 @@ class CreateAccountStatusesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('account_statuses');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['account_status_id']);
+        });
+        
+        Schema::dropIfExists('account_statuses');
 	}
 
 }

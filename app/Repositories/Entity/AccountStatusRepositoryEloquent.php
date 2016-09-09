@@ -2,16 +2,11 @@
 
 namespace Iplan\Repositories\Entity;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
+use Iplan\Entity\AccountStatus;
 use Iplan\Repositories\Contracts\Entity\AccountStatusRepository;
-use Iplan\Entity\Entity\AccountStatus;
-use Iplan\Validators\Entity\AccountStatusValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-/**
- * Class AccountStatusRepositoryEloquent
- * @package namespace Iplan\Repositories\Entity;
- */
 class AccountStatusRepositoryEloquent extends BaseRepository implements AccountStatusRepository
 {
     /**
@@ -23,9 +18,7 @@ class AccountStatusRepositoryEloquent extends BaseRepository implements AccountS
     {
         return AccountStatus::class;
     }
-
     
-
     /**
      * Boot up the repository, pushing criteria
      */

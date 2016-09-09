@@ -178,6 +178,7 @@ return [
         // Iplan\Providers\BroadcastServiceProvider::class,
         Iplan\Providers\EventServiceProvider::class,
         Iplan\Providers\RouteServiceProvider::class,
+        Iplan\Providers\RepositoryServiceProvider::class,
     ],
     
     /*

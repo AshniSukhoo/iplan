@@ -4,9 +4,9 @@ namespace Iplan\Http\Controllers\Auth;
 
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Iplan\Entity\AccountStatus;
 use Iplan\Entity\User;
 use Iplan\Http\Controllers\Controller;
+use Iplan\Repositories\Contracts\Entity\AccountStatusRepository;
 use Validator;
 
 class RegisterController extends Controller
@@ -52,9 +52,7 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
         
         // Create User.
-        $this->create($request->all());
-        
-        return redirect($this->redirectPath());
+        return $this->create($request->all());
     }
     
     /**
@@ -78,18 +76,34 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
+     * @param array $data
      *
-     * @return User
+     * @return \Illuminate\Http\Response
      */
     protected function create(array $data)
     {
-        return User::create([
+        // Get Account status
+        $accountStatus = app()->make(AccountStatusRepository::class)->findByField('status', 'unconfirmed');
+        
+        // No account status found
+        if ($accountStatus->isEmpty()) {
+            return redirect($this->redirectPath())->withErrors([
+                'message' => 'Could not find account status to associate to user.'
+            ]);
+        }
+        
+        // Create User
+        User::create([
             'first_name'        => $data['first_name'],
             'last_name'         => $data['last_name'],
-            'account_status_id' => AccountStatus::whereStatus('unconfirmed')->firstOrFail()->id,
+            'account_status_id' => $accountStatus->first()->id,
             'email'             => $data['email'],
             'password'          => bcrypt($data['password']),
+        ]);
+        
+        // Go to Homepage
+        return redirect($this->redirectPath())->with([
+            'message' => 'Your account has been created'
         ]);
     }
 }
