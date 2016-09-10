@@ -5,6 +5,14 @@ namespace Iplan\Entity;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Iplan\Entity\User
+ *
+ * @property-read \Iplan\Entity\AccountStatus $accountStatus
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -41,4 +49,14 @@ class User extends Authenticatable
         'created_at',
         'updated_at'
     ];
+    
+    /**
+     * Account status of the User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function accountStatus()
+    {
+        return $this->belongsTo(AccountStatus::class);
+    }
 }

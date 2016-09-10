@@ -4,6 +4,12 @@ namespace Iplan\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Iplan\Entity\AccountStatus
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Iplan\Entity\User[] $users
+ * @mixin \Eloquent
+ */
 class AccountStatus extends Model
 {
     /**
@@ -24,4 +30,14 @@ class AccountStatus extends Model
         'created_at',
         'updated_at'
     ];
+    
+    /**
+     * All users with this account status.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

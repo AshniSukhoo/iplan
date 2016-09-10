@@ -168,8 +168,6 @@ return [
          */
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         
-        //
-        
         /*
          * Application Service Providers...
          */
@@ -192,6 +190,7 @@ return [
     
     'devProviders' => [
         Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
     
     

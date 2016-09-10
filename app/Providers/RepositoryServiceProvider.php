@@ -3,6 +3,8 @@
 namespace Iplan\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Iplan\Repositories\Contracts\Entity as RepositoriesInterface;
+use Iplan\Repositories\Entity as Repositories;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,8 @@ class RepositoryServiceProvider extends ServiceProvider
      * @var array
      */
     protected $repositories = [
-        \Iplan\Repositories\Contracts\Entity\AccountStatusRepository::class => \Iplan\Repositories\Entity\AccountStatusRepositoryEloquent::class
+        RepositoriesInterface\AccountStatusRepository::class => Repositories\AccountStatusRepositoryEloquent::class,
+        RepositoriesInterface\UserRepository::class          => Repositories\UserRepositoryEloquent::class
     ];
     
     /**

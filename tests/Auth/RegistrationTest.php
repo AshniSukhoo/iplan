@@ -22,12 +22,13 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'secret',
         ]);
         
-        $this->assertRedirectedTo('/')
+        $this->assertRedirectedTo('/login')
              ->seeInDatabase('users', [
                  'first_name'        => 'Ashni',
                  'last_name'         => 'Sukhoo',
                  'email'             => 'ashni@email.com',
                  'account_status_id' => AccountStatus::whereStatus('unconfirmed')->firstOrFail()->id,
              ]);
+        $this->assertSessionHas('message', 'Your account has been created, we sent you an email to verify your account.');
     }
 }
