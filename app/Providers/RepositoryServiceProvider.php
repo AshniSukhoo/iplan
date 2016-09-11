@@ -21,8 +21,9 @@ class RepositoryServiceProvider extends ServiceProvider
      * @var array
      */
     protected $repositories = [
-        RepositoriesInterface\AccountStatusRepository::class => Repositories\AccountStatusRepositoryEloquent::class,
-        RepositoriesInterface\UserRepository::class          => Repositories\UserRepositoryEloquent::class
+        RepositoriesInterface\AccountStatusRepository::class     => Repositories\AccountStatusRepositoryEloquent::class,
+        RepositoriesInterface\UserRepository::class              => Repositories\UserRepositoryEloquent::class,
+        RepositoriesInterface\VerificationTokenRepository::class => Repositories\VerificationTokenRepositoryEloquent::class
     ];
     
     /**

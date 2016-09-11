@@ -6,6 +6,7 @@ use Iplan\Mail\VerifyAccountEmail;
 use Iplan\Repositories\Contracts\Entity\AccountStatusRepository;
 use Iplan\Repositories\Contracts\Entity\UserRepository;
 use Mail;
+use Iplan\Repositories\Contracts\Entity\VerificationTokenRepository;
 
 class RegisterNewUser
 {
@@ -41,6 +42,13 @@ class RegisterNewUser
      * @var AccountStatusRepository
      */
     protected $accountStatusRepository;
+
+    /**
+     * Verification token repository.
+     *
+     * @var VerificationTokenRepository
+     */
+    protected $verificationTokenRepository;
     
     /**
      * Create a new command instance.
@@ -52,6 +60,7 @@ class RegisterNewUser
         $this->data = $data;
         $this->userRepository = app()->make(UserRepository::class);
         $this->accountStatusRepository = app()->make(AccountStatusRepository::class);
+        $this->verificationTokenRepository = app()->make(VerificationTokenRepository::class);
     }
     
     /**
@@ -70,7 +79,13 @@ class RegisterNewUser
                 'message' => 'Sorry we could not create your account, try again later.'
             ]);
         }
-        
+
+        //create token
+        $this->verificationTokenRepository->create([
+            'user_id' => $user->id,
+            'token'   => 
+        ]);
+
         // Send Email.
         Mail::to($user)->send(new VerifyAccountEmail());
         
