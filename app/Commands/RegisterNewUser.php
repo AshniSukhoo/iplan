@@ -83,7 +83,7 @@ class RegisterNewUser
         //create token
         $this->verificationTokenRepository->create([
             'user_id' => $user->id,
-            'token'   => 
+            'token'   => str_random(50)
         ]);
 
         // Send Email.

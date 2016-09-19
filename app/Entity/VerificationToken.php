@@ -10,6 +10,6 @@ class VerificationToken extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = [];
+    protected $fillable = ["user_id", "token"];
 
 }

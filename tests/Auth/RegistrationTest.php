@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Iplan\Entity\AccountStatus;
+use Iplan\Entity\User;
 
 class RegistrationTest extends TestCase
 {
@@ -29,6 +30,7 @@ class RegistrationTest extends TestCase
                  'email'             => 'ashni@email.com',
                  'account_status_id' => AccountStatus::whereStatus('unconfirmed')->firstOrFail()->id,
              ]);
+       $user_id = User::where('first_name', "Ashni")->first()->id;
         $this->assertSessionHas('message', 'Your account has been created, we sent you an email to verify your account.');
     }
 }
