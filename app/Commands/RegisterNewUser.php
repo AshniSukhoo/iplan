@@ -3,10 +3,9 @@
 namespace Iplan\Commands;
 
 use Iplan\Mail\VerifyAccountEmail;
-use Iplan\Repositories\Contracts\Entity\AccountStatusRepository;
-use Iplan\Repositories\Contracts\Entity\UserRepository;
+use Iplan\Repositories\Contracts\AccountStatusRepository;
+use Iplan\Repositories\Contracts\UserRepository;
 use Mail;
-use Iplan\Repositories\Contracts\Entity\VerificationTokenRepository;
 
 class RegisterNewUser
 {
@@ -42,13 +41,6 @@ class RegisterNewUser
      * @var AccountStatusRepository
      */
     protected $accountStatusRepository;
-
-    /**
-     * Verification token repository.
-     *
-     * @var VerificationTokenRepository
-     */
-    protected $verificationTokenRepository;
     
     /**
      * Create a new command instance.
@@ -60,7 +52,6 @@ class RegisterNewUser
         $this->data = $data;
         $this->userRepository = app()->make(UserRepository::class);
         $this->accountStatusRepository = app()->make(AccountStatusRepository::class);
-        $this->verificationTokenRepository = app()->make(VerificationTokenRepository::class);
     }
     
     /**
@@ -79,13 +70,7 @@ class RegisterNewUser
                 'message' => 'Sorry we could not create your account, try again later.'
             ]);
         }
-
-        //create token
-        $this->verificationTokenRepository->create([
-            'user_id' => $user->id,
-            'token'   => str_random(50)
-        ]);
-
+        
         // Send Email.
         Mail::to($user)->send(new VerifyAccountEmail());
         
@@ -111,7 +96,7 @@ class RegisterNewUser
         }
         
         // Create User
-        return $this->userRepository->create([
+        return $this->userRepository->createWithToken([
             'first_name'        => $this->data['first_name'],
             'last_name'         => $this->data['last_name'],
             'account_status_id' => $accountStatus->first()->id,

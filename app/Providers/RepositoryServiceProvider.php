@@ -3,8 +3,8 @@
 namespace Iplan\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Iplan\Repositories\Contracts\Entity as RepositoriesInterface;
-use Iplan\Repositories\Entity as Repositories;
+use Iplan\Repositories\Contracts as RepositoriesInterface;
+use Iplan\Repositories;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

@@ -15,7 +15,7 @@ class CreateVerificationTokensTable extends Migration
 	{
 		Schema::create('verification_tokens', function(Blueprint $table) {
             $table->increments('id');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->nullable();
 			$table->string('token', '50');
             $table->timestamps();
 		});

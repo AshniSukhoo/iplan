@@ -1,9 +1,9 @@
 <?php
 
-namespace Iplan\Repositories\Entity;
+namespace Iplan\Repositories;
 
 use Iplan\Entity\AccountStatus;
-use Iplan\Repositories\Contracts\Entity\AccountStatusRepository;
+use Iplan\Repositories\Contracts\AccountStatusRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 

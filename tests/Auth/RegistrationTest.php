@@ -30,7 +30,12 @@ class RegistrationTest extends TestCase
                  'email'             => 'ashni@email.com',
                  'account_status_id' => AccountStatus::whereStatus('unconfirmed')->firstOrFail()->id,
              ]);
-       $user_id = User::where('first_name', "Ashni")->first()->id;
+        
+        $user_id = User::where('first_name', 'Ashni')->first()->id;
+        $this->seeInDatabase('verification_tokens', [
+            'user_id' => $user_id
+        ]);
+        
         $this->assertSessionHas('message', 'Your account has been created, we sent you an email to verify your account.');
     }
 }
