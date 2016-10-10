@@ -18,7 +18,6 @@ class VerificationTokenRepositoryEloquent extends BaseRepository implements Veri
     {
         return VerificationToken::class;
     }
-
     
 
     /**

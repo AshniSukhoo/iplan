@@ -166,6 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
+        PercyMamedy\LaravelDevBooter\ServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         
         /*
@@ -188,7 +189,7 @@ return [
     |
     */
     
-    'devProviders' => [
+    'dev_providers' => [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
@@ -238,7 +239,6 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-    
     ],
 
 ];

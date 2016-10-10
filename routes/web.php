@@ -11,10 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*
+ * Welcome Page Route.
+ */
+Route::get('/', [
+    'uses' => 'HomeController@getWelcomePage',
+    'as'   => 'page.welcome'
+]);
 
+/*
+ * Authentication Route.
+ */
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+/*
+ * Verify User Account Route.
+ */
+Route::get('verify-user-account/{verificationToken}', [
+    'uses' => 'HomeController@getWelcomePage',
+    'as'   => 'actions.verify-user-account'
+]);

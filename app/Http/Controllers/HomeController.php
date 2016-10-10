@@ -13,7 +13,17 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
+    /**
+     * Load Welcome Page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getWelcomePage()
+    {
+        return view('welcome');
+    }
+    
     /**
      * Show the application dashboard.
      *

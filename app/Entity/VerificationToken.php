@@ -5,10 +5,12 @@ namespace Iplan\Entity;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Iplan\Presenters\Accessors\VerificationTokenAccessors;
 
 class VerificationToken extends Model implements Transformable
 {
-    use TransformableTrait;
+    use TransformableTrait,
+        VerificationTokenAccessors;
     
     /**
      * The attributes that are mass assignable.

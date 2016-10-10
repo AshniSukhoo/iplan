@@ -67,12 +67,12 @@ class RegisterNewUser
         // Could not create User.
         if (is_null($user)) {
             return $this->redirectRegisterPath([
-                'message' => 'Sorry we could not create your account, try again later.'
+                'message' => 'Sorry we could not create your account, try again later.',
             ]);
         }
         
         // Send Email.
-        Mail::to($user)->send(new VerifyAccountEmail());
+        Mail::to($user)->send(new VerifyAccountEmail($user->verificationToken));
         
         // Go to login when register is successfull.
         return $this->redirectLoginPath([

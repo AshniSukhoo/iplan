@@ -5,17 +5,34 @@ namespace Iplan\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Iplan\Entity\VerificationToken;
 
 class VerifyAccountEmail extends Mailable
 {
     use Queueable, SerializesModels;
     
     /**
-     * Create a new message instance.
+     * Account Verification Token.
+     *
+     * @var VerificationToken
      */
-    public function __construct()
+    public $verificationToken;
+    
+    /**
+     * Email Subject/Title
+     *
+     * @var string
+     */
+    protected $title = 'Welcome to Iplan';
+    
+    /**
+     * VerifyAccountEmail constructor.
+     *
+     * @param \Iplan\Entity\VerificationToken $verificationToken
+     */
+    public function __construct(VerificationToken $verificationToken)
     {
-        //
+        $this->verificationToken = $verificationToken;
     }
     
     /**
@@ -26,6 +43,10 @@ class VerifyAccountEmail extends Mailable
     public function build()
     {
         return $this->from('hello@iplan.mu')
-                    ->view('emails.verify-account-email');
+                    ->subject($this->title)
+                    ->view('emails.verify-account-email')
+                    ->with([
+                        'title' => $this->title
+                    ]);
     }
 }
