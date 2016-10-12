@@ -67,7 +67,10 @@ class RegisterNewUser
         // Could not create User.
         if (is_null($user)) {
             return $this->redirectRegisterPath([
-                'message' => 'Sorry we could not create your account, try again later.',
+                'message' => [
+                    'text' => 'Sorry we could not create your account, try again later.',
+                    'type' => 'danger'
+                ],
             ]);
         }
         
@@ -76,7 +79,10 @@ class RegisterNewUser
         
         // Go to login when register is successfull.
         return $this->redirectLoginPath([
-            'message' => 'Your account has been created, we sent you an email to verify your account.'
+            'message' => [
+                'text' => 'Your account has been created, we sent you an email to verify your account.',
+                'type' => 'success'
+            ]
         ]);
     }
     

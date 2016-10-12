@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Iplan\Entity\AccountStatus;
 use Iplan\Entity\User;
+use Illuminate\Support\Facades\Mail;
+use Iplan\Mail\VerifyAccountEmail;
 
 class RegistrationTest extends TestCase
 {
@@ -15,6 +17,8 @@ class RegistrationTest extends TestCase
      */
     public function testRegistrationWithCorrectInputsRegistrationOK()
     {
+        Mail::fake();
+        
         $this->post('register', [
             'first_name'            => 'Ashni',
             'last_name'             => 'Sukhoo',
@@ -35,7 +39,9 @@ class RegistrationTest extends TestCase
         $this->seeInDatabase('verification_tokens', [
             'user_id' => $user_id
         ]);
+    
+        Mail::assertSentTo(['ashni@email.com'], VerifyAccountEmail::class);
         
-        $this->assertSessionHas('message', 'Your account has been created, we sent you an email to verify your account.');
+        $this->assertSessionHas('message.text', 'Your account has been created, we sent you an email to verify your account.');
     }
 }
