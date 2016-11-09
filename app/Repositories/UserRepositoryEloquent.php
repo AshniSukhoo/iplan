@@ -55,4 +55,19 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         // Return User.
         return $user;
     }
+
+    /**
+     * Verify user.
+     *
+     * @param User $user
+     *
+     * @return User
+     */
+    public function verifyUser(User $user)
+    {
+        $user->update(['account_status_id' => 1]);
+
+        return $user;
+    }
+
 }

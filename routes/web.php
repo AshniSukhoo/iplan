@@ -30,6 +30,6 @@ Route::get('/home', 'HomeController@index');
  * Verify User Account Route.
  */
 Route::get('verify-user-account/{verificationToken}', [
-    'uses' => 'HomeController@getWelcomePage',
+    'uses' => 'AccountVerificationController@getVerifiedToken',
     'as'   => 'actions.verify-user-account'
 ]);
