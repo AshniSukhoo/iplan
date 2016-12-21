@@ -33,3 +33,8 @@ Route::get('verify-user-account/{verificationToken}', [
     'uses' => 'AccountVerificationController@getVerifiedToken',
     'as'   => 'actions.verify-user-account'
 ]);
+
+/*
+ * Project's routes
+ */
+Route::resource('projects', 'ProjectController');

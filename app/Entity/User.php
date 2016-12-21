@@ -69,4 +69,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(VerificationToken::class);
     }
+
+    /**
+     * Projects of user
+     */
+    public function project()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
