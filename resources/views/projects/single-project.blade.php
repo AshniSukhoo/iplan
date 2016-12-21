@@ -1,46 +1,43 @@
 @extends('layouts.app')
 
 @section('title')
-    My project
+   {{ $project->name }}
 @stop
 
 @section('content')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1> My project </h1>
+                <h1>{{ $project->name}}</h1>
             </div>
         </div>
 
+        <hr/>
+
         <div class="row">
-            <div class="col-xs-5">
-                <div class="card-wrapper">
-                    <div class="card">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Dashboard</div>
+
+                    <div class="panel-body">
                         <p class="desc-text text-justify">
                             <b>Project id:</b>
-                            {{ $projects->id}}
+                            {{ $project->id}}
                         </p>
 
                         <p class="desc-text text-justify">
                             <b>Project name:</b>
-                            {{ $projects->name}}
+                            {{ $project->name}}
                         </p>
 
                         <p class="desc-text text-justify">
-                            <b>Project name:</b>
-                            {{ $projects->name}}
-                        </p>
-
-                        <p class="desc-text text-justify">
-                           <b>Project description:</b>
-                            {{ $projects->description}}
+                            <b>Project description:</b>
+                            {{ $project->description}}
                         </p>
 
                         <p class="desc-text text-justify">
                             <b>Project created at:</b>
-                            {{ $projects->created_at}}
+                            {{ $project->created_at}}
                         </p>
 
 
@@ -64,7 +61,7 @@
                         </ul>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
 @endsection

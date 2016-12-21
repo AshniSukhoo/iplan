@@ -51,6 +51,16 @@ class User extends Authenticatable
     ];
     
     /**
+     * Get the Full name of the User.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+    
+    /**
      * Account status of the User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -69,11 +79,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(VerificationToken::class);
     }
-
+    
     /**
-     * Projects of user
+     * Projects of a User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function project()
+    public function projects()
     {
         return $this->hasMany(Project::class);
     }
