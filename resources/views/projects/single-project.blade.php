@@ -37,28 +37,21 @@
 
                         <p class="desc-text text-justify">
                             <b>Project created at:</b>
-                            {{ $project->created_at}}
+                            <abbr title="{{ $project->created_at->toDayDateTimeString() }}">
+                                {{ $project->created_at->diffForHumans()}}
+                            </abbr>
                         </p>
 
-
-                        <ul class="controls">
-
-                            <li class="edit">
+                            <a class="btn btn-primary" href="{{ route('projects.edit', ['id'=>$project->id ]) }}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <p class="text-a">Edit</p>
-                            </li>
-
-                            <li class="update">
-                                <i class="fa fa-wrench" aria-hidden="true"></i>
-                                <p class="text-a">Update</p>
-                            </li>
+                                Edit project
+                            </a>
 
                             <li class="trash">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                 <p class="text-a">Delete</p>
                             </li>
 
-                        </ul>
                     </div>
                 </div>
             </div>
