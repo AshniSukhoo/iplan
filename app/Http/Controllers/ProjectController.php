@@ -4,6 +4,7 @@ namespace Iplan\Http\Controllers;
 
 use Iplan\Entity\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -34,7 +35,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        // Load the view with create new project forrm
+        return view('projects.create-new-project');
     }
     
     /**
@@ -46,7 +48,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //set validations rules
+        $this->validate($request, [
+            'new_project_name'        => 'required',
+            'new_project_description' => 'required'
+        ]);
+
+        //saving data inputted
+        $project = Project::create([
+            'name' => $request->input('new_project_name'),
+            'description' => $request->input('new_project_description'),
+            'user_id' => Auth::user()->id
+        ]);
+
+        // Go to Single Project Created.
+        return redirect(route('projects.show', ['id' => $project->id]));
     }
     
     /**
@@ -74,7 +90,11 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //create blade form
+        // Get the Specific project first using it's ID.
+        $project = Project::where('id', '=', $id)->first();
+
+        // Load the view form with project fields
+        return view('projects.edit-single-project', ['project' => $project]);
     }
     
     /**
@@ -87,12 +107,24 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //set validations rules
+        $this->validate($request, [
+            'project_name'        => 'required',
+            'project_description' => 'required'
+        ]);
+
+        //Get project with specific id and update the rows
+        $project = Project::where('id', '=', $id)->update([
+            'name' => $request->input('project_name'),
+            'description' => $request->input('project_description')
+        ]);
+
+        return redirect(route('projects.show', ['id' => $id]));
     }
     
     /**
      * Remove the specified resource from storage.
-     *
+
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
