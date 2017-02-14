@@ -8,43 +8,127 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>{{ $project->name}}</h1>
+                <h1 style="text-align: center">{{ $project->name}}</h1>
             </div>
         </div>
 
         <hr/>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-3">
+                <div class="panel panel-default panel-flush">
+                <div class="panel-heading">
+                    Actions <i class="fa fa-bolt" aria-hidden="true"></i>
+                </div>
+
+                <div class="panel-body">
+                    <div class="spark-settings-tabs">
+                        <ul class="nav spark-settings-stacked-tabs" role="tablist">
+                            <li role="presentation">
+                                <a href="{{ route('home') }}">
+                                    <i class="fa fa-dashboard" aria-hidden="true"></i>
+                                    Back to Dashboard
+                                </a>
+                            </li>
+
+                            <li role="presentation">
+                                <a href=" {{route('work-items.create', ['project_id'=>$project->id ]) }}">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                        Create new work item
+                                </a>
+                            </li>
+
+                            <li role="presentation">
+                                <a href="">
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                   Project owner: {{ Auth::user()->first_name }}
+                                </a>
+                            </li>
+
+                            <li  role="presentation">
+                                <a href="">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    Project created:
+                                    <abbr title="{{ $project->created_at->toDayDateTimeString() }}">
+                                        {{ $project->created_at->diffForHumans()}}
+                                    </abbr>
+                                 </a>
+                            </li>
+
+                            <li role="presentation">
+                                <a href="">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Project last updated:
+                                    <abbr title="{{ $project->updated_at->toDayDateTimeString() }}">
+                                        {{ $project->updated_at->diffForHumans()}}
+                                    </abbr>
+                                </a>
+                            </li>
+
+                            <li role="presentation">
+                                @if(Auth::user()->id == $project->user_id)
+                                    <a class="btn btn-primary" href="{{ route('projects.edit', ['id'=>$project->id ]) }}">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        Edit project
+                                    </a>
+                                @endif
+                            </li>
+
+                            <li role="presentation">
+                                @if(Auth::user()->id == $project->user_id)
+                                    <form action="{{ route('projects.destroy', ['id'=>$project->id ]) }}" method="POST" style="display: inline-block;">
+                                        {{ method_field('DELETE') }}
+
+                                        {{ csrf_field() }}
+
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </button>
+                                    </form>
+                                @endif
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-8">
                 <div class="panel panel-default">
 
                     <div class="panel-body">
-                        <p class="desc-text text-justify">
-                            <b>Project name:</b>
-                            {{ $project->name}}
-                        </p>
+                        @if(session('success_message'))
+                            <div class="alert alert-success">
+                                {{ session('success_message') }}
+                            </div>
+                        @endif
+
+                        @if(count($errors))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                           </div>
+                        @endif
 
                         <p class="desc-text text-justify">
                             <b>Project description:</b>
-                            {{ $project->description}}
+                            {!! $project->description !!}
                         </p>
 
-                        <p class="desc-text text-justify">
-                            <b>Project created at:</b>
-                            <abbr title="{{ $project->created_at->toDayDateTimeString() }}">
-                                {{ $project->created_at->diffForHumans()}}
-                            </abbr>
-                        </p>
+                    </div>
 
-                            <a class="btn btn-primary" href="{{ route('projects.edit', ['id'=>$project->id ]) }}">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                Edit project
+                    <div class="panel-body">
+                        <h4>
+                            <a href="{{ route('work-items.index', ['project_id'=>$project->id ]) }}">
+                                <i class="fa fa-list-ul" aria-hidden="true"></i>
+                                Show work items of project
                             </a>
-
-                            <a class="btn btn-danger" href="{{ route('projects.destroy', ['id'=>$project->id ]) }}">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                Delete
-                            </a>
+                        </h4>
+                    </div>
 
                     </div>
                 </div>

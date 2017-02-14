@@ -52,5 +52,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Iplan\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        // Project Middlewares.
+        'projects.can.access' => \Iplan\Http\Middleware\CanAccessProject::class,
+        'projects.can.modify' => \Iplan\Http\Middleware\CanModifyProject::class,
     ];
 }

@@ -16,7 +16,11 @@
         <hr/>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-3">
+               @include('projects.sidebarmenu')
+            </div>
+
+            <div class="col-md-8">
                 <div class="panel panel-default">
 
                     <div class="panel-body">
@@ -38,17 +42,15 @@
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="new_project_name" class="col-md-4 control-label">Project Name</label>
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label for="new_project_name" class="control-label">Project Name</label>
                                     <input id="new_project_name" type="text" class="form-control" name="new_project_name" autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="new_project_description" class="col-md-4 control-label">Project Description</label>
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label for="new_project_description" class="control-label">Project Description</label>
                                     <textarea id="new_project_description" class="form-control" name="new_project_description"> </textarea>
                                 </div>
                             </div>
@@ -70,3 +72,13 @@
     </div>
 
 @stop
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#new_project_description').summernote({
+                height: 300,
+            });
+        });
+    </script>
+@endsection

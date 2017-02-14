@@ -33,7 +33,8 @@
 
                                 <li role="presentation">
                                     <a href="">
-                                        I dont wana know
+                                        <i class="fa fa-bell" aria-hidden="true"></i>
+                                        Notification
                                     </a>
                                 </li>
 

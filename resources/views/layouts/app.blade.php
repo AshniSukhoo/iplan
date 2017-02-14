@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/summernote/summernote.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -53,6 +54,11 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
+                        <li>
+                            <a href="{{ route('home') }}"  role="button">
+                                Dashboard
+                            </a>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->first_name }} <span class="caret"></span>
@@ -88,6 +94,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/summernote/summernote.min.js') }}"></script>
 
     @yield('js')
 

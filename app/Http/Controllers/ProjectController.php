@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
     /**
+     * ProjectController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('projects.can.access')->except([
+            'index', 'create', 'store'
+        ]);
+
+        $this->middleware('projects.can.modify')->only([
+            'edit', 'update', 'destroy'
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -54,7 +70,7 @@ class ProjectController extends Controller
             'new_project_description' => 'required'
         ]);
 
-        //saving data inputted
+        // Saving data inputted
         $project = Project::create([
             'name' => $request->input('new_project_name'),
             'description' => $request->input('new_project_description'),
@@ -62,7 +78,9 @@ class ProjectController extends Controller
         ]);
 
         // Go to Single Project Created.
-        return redirect(route('projects.show', ['id' => $project->id]));
+        return redirect(route('projects.show', ['id' => $project->id]))->with([
+            'success_message' => 'The project was sucessfully created.'
+        ]);
     }
     
     /**
@@ -113,13 +131,22 @@ class ProjectController extends Controller
             'project_description' => 'required'
         ]);
 
-        //Get project with specific id and update the rows
-        $project = Project::where('id', '=', $id)->update([
+        // Get project with specific id and update the rows
+        $projectWasUpdated =  Project::where('id', '=', $id)->update([
             'name' => $request->input('project_name'),
             'description' => $request->input('project_description')
         ]);
 
-        return redirect(route('projects.show', ['id' => $id]));
+        // Check if Update was successful.
+        if($projectWasUpdated) {
+            return redirect(route('projects.show', ['id' => $id]))->with([
+                'success_message' => 'Project was updated sucessfully'
+            ]);
+        } else {
+            return redirect(route('projects.edit', ['id' => $id]))->withErrors([
+                'An error occurred, could not update Project'
+            ]);
+        }
     }
     
     /**
@@ -131,6 +158,18 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Get project with specific id and delete the row
+        $projectWasDeleted = Project::where('id', '=', $id)->delete();
+
+        // Check if Project was deleted.
+        if($projectWasDeleted) {
+            return redirect(route('projects.index'))->with([
+                'success_message' => 'Project was deleted'
+            ]);
+        } else {
+            return redirect(route('projects.show'))->withErrors([
+                'Sorry an error occured, could not deleted project.'
+            ]);
+        }
     }
 }

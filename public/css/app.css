@@ -4546,7 +4546,8 @@ tbody.collapse.in {
 
 .navbar-default {
     background-color: #fff;
-    border-color: #d3e0e9
+    border-color: #3097d1;
+    border-bottom-width: thick;
 }
 
 .navbar-default .navbar-brand {
@@ -6866,4 +6867,15 @@ button.close {
     bottom: 30px;
     position: absolute;
     left: 40%;
+}
+
+/*
+*welcome page
+*/
+.introtext {
+    font-size: 1.38em;
+    line-height: 1.8em;
+    font-weight: 300;
+    color: #354953;
+    margin-top: 20px;
 }

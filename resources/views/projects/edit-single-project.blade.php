@@ -16,7 +16,11 @@
         <hr/>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-3">
+                @include('projects.sidebarmenu')
+            </div>
+
+            <div class="col-md-8 ">
                 <div class="panel panel-default">
 
                     <div class="panel-body">
@@ -32,22 +36,20 @@
                         @endif
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('projects.update', ['id'=>$project->id ]) }}">
 
-                            <input type="hidden" name="_method" value="PUT">
+                            {{ method_field('PUT') }}
 
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="project_name" class="col-md-4 control-label">Project Name</label>
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label for="project_name" class="control-label">Project Name</label>
                                     <input id="project_name" type="text" class="form-control" name="project_name" value="{{ $project->name }}" autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="project_description" class="col-md-4 control-label">Project Description</label>
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label for="project_description" class="control-label">Project Description</label>
                                     <textarea id="project_description" class="form-control" name="project_description"> {{ $project->description }} </textarea>
                                 </div>
                             </div>
@@ -67,5 +69,14 @@
             </div>
         </div>
     </div>
-
 @stop
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#project_description').summernote({
+                height: 300,
+            });
+        });
+    </script>
+@endsection

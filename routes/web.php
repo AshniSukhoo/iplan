@@ -38,3 +38,8 @@ Route::get('verify-user-account/{verificationToken}', [
  * Project's routes
  */
 Route::resource('projects', 'ProjectController');
+
+/*
+ * work items' route
+ */
+Route::resource('projects/{project_id}/work-items', 'WorkItemController');
