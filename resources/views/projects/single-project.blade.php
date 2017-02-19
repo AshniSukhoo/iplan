@@ -64,31 +64,33 @@
                                     </abbr>
                                 </a>
                             </li>
+                        </ul>
 
-                            <li role="presentation">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
                                 @if(Auth::user()->id == $project->user_id)
-                                    <a class="btn btn-primary" href="{{ route('projects.edit', ['id'=>$project->id ]) }}">
+                                    <a class="btn btn-primary btn-block" href="{{ route('projects.edit', ['id'=>$project->id ]) }}">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Edit project
                                     </a>
                                 @endif
-                            </li>
+                            </div>
 
-                            <li role="presentation">
+                            <div class="col-md-12">
                                 @if(Auth::user()->id == $project->user_id)
-                                    <form action="{{ route('projects.destroy', ['id'=>$project->id ]) }}" method="POST" style="display: inline-block;">
+                                    <form onsubmit="return confirm('Are you sure you want to delete this project ?')" action="{{ route('projects.destroy', ['id'=>$project->id ]) }}" method="POST">
                                         {{ method_field('DELETE') }}
 
                                         {{ csrf_field() }}
 
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" class="btn btn-danger btn-block">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                             Delete
                                         </button>
                                     </form>
                                 @endif
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

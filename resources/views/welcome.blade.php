@@ -10,13 +10,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div>
-                    <img src="/img/ip-logo.jpg" alt="test" style="width:300px;height:400px;">
+                    <img src="/img/ip-logo2.png" alt="test" style="width:300px;height:250px; margin-top:20px">
                 </div>
             </div>
 
             <div class="col-md-6">
 
-                <h2>welcome to iPlan</h2>
+                <h2>Welcome to iPlan</h2>
 
                 <div class="introtext">
                     <p>
@@ -39,12 +39,12 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12" style="margin-top: 15px;">
-                <img src="/img/business-1839876_1920.jpg" alt="test" style="width:100%;height:50%;">
-            </div>
-        </div>
+    </div>
+    <!--/.container-->
 
+    <div class="banner"></div>
+
+    <div class="container">
         <div class="row" style="margin-top:50px;">
             <div class="col-md-4">
                 <div class="introtextbody">
@@ -112,4 +112,5 @@
         </div>
 
     </div>
+    <!--/.container-->
 @stop

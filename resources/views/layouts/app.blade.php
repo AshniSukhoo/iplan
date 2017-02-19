@@ -21,8 +21,10 @@
         ]); ?>
     </script>
 </head>
-<body>
 
+<body @section('body-class')
+      class="main-body"
+        @show>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -98,5 +100,6 @@
 
     @yield('js')
 
+    @yield('footer')
 </body>
 </html>

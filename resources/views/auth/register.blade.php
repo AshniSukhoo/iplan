@@ -4,6 +4,10 @@
     Register
 @stop
 
+@section('body-class')
+    class="background-body"
+@stop
+
 @section('content')
     <div class="container">
         <div class="row">
