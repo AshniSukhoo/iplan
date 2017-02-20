@@ -100,6 +100,5 @@
 
     @yield('js')
 
-    @yield('footer')
 </body>
 </html>

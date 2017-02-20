@@ -100,4 +100,8 @@
             </div>
         </div>
     </div>
+
+    <div class="footer-bar">
+        @include('layouts.footer')
+    </div>
 @endsection

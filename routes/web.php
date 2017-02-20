@@ -20,6 +20,11 @@ Route::get('/', [
 ]);
 
 /*
+ * Privacy  policies page
+ */
+Route::get('privacy-policies', 'PoliciesController@index')->name('policies');
+
+/*
  * Authentication Route.
  */
 Auth::routes();
