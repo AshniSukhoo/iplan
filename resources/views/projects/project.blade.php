@@ -61,48 +61,61 @@
                 </div>
             </div>
 
-            <div class="col-md-9">
-                @if(session('success_message'))
-                    <div class="alert alert-success">
-                        {{ session('success_message') }}
-                    </div>
-                @endif
+            @if(! $projects->isEmpty())
+                <div class="col-md-9">
+                    @if(session('success_message'))
+                        <div class="alert alert-success">
+                            {{ session('success_message') }}
+                        </div>
+                    @endif
 
-                @if(! $projects->isEmpty())
-                    @foreach ($projects as $project)
-                        <div class="col-md-4">
-                            <div class="project project-info">
-                                <div class="shape">
-                                    <div class="shape-text">
+                    @foreach ($projects->chunk(3) as $projectRow)
+                        <div class="row">
+                            @foreach($projectRow as $project)
+                                <div class="col-md-4">
+                                    <div class="project project-info">
+                                        <div class="shape">
+                                            <div class="shape-text">
+                                            </div>
+                                        </div>
+                                        <div class="project-content">
+                                            <h3 class="lead">
+                                                {{ $project->name }}
+                                            </h3>
+                                            <p>
+                                                {{ str_limit(strip_tags($project->description),50,'...') }}
+                                            </p>
+
+                                            <div class="project-button">
+                                                <a class="btn btn-info"
+                                                   href="{{ route('projects.show', ['id' => $project->id]) }}">
+                                                    Open
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="project-content">
-                                    <h3 class="lead">
-                                        {{ $project->name }}
-                                    </h3>
-                                    <p>
-                                        {{ str_limit(strip_tags($project->description),50,'...') }}
-                                    </p>
+                            @endforeach
+                        </div>
+                        <!--/.row-->
+                    @endforeach
 
-                                    <div class="project-button">
-                                        <a class="btn btn-info" href="{{ route('projects.show', ['id' => $project->id]) }}">
-                                            Open
-                                        </a>
-                                    </div>
-                                </div>
+                    @if($projects->hasPages())
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <!--create the pagination links using the render method-->
+                                {{ $projects->render() }}
                             </div>
                         </div>
-                    @endforeach
-                    <div class="project-pagination-link">
-                        <!--create the pagination links using the render method-->
-                        {{ $projects->render() }}
-                    </div>
-                @else
+                        <!--/.row-->
+                    @endif
+                </div>
+            @else
+                <div class="col-md-12">
                     @include('projects.no-project-found')
-                @endif
-
-            </div>
-
+                </div>
+                <!--/.col-->
+            @endif
         </div>
         <!--/row-->
     </div>

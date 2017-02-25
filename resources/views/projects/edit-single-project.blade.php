@@ -17,7 +17,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                @include('workitems.sidebarmenu')
+                @include('projects.sidebarmenu')
             </div>
 
             <div class="col-md-9">

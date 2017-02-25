@@ -3,19 +3,12 @@
 namespace Iplan\Entity;
 
 use Illuminate\Notifications\Notifiable;
+use Iplan\Presenters\Accessors\UserAccessors;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * Iplan\Entity\User
- *
- * @property-read \Iplan\Entity\AccountStatus $accountStatus
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
- * @mixin \Eloquent
- */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UserAccessors;
 
     /**
      * The attributes that are mass assignable.

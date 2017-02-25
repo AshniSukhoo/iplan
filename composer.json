@@ -9,7 +9,11 @@
         "prettus/l5-repository": "^2.6",
         "percymamedy/laravel-dev-booter": "^0.1.0",
         "laravel/framework": "5.3.*",
-        "laravelcollective/html": "^5.3"
+        "laravelcollective/html": "^5.3",
+        "genealabs/laravel-caffeine": "^0.4.2",
+        "doctrine/dbal": "^2.5",
+        "laravolt/avatar": "^1.8",
+        "intervention/imagecache": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",

@@ -13,7 +13,7 @@
     <div class="container">
 
         <form class="form-horizontal" role="form" method="POST"
-              action=" {{ route('work-items.store', ['project_id'=>$project->id ]) }}">
+              action=" {{ route('work-items.store', ['project_id' => $project->id ]) }}">
             {{ csrf_field() }}
 
             <div class="row">
@@ -66,7 +66,8 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="new_work_item_assigned_user" class="control-label">Assign work item to member</label>
+                                    <label for="new_work_item_assigned_user" class="control-label">Assign work item to
+                                        member</label>
                                     <select id="new_work_item_assigned_user" name="new_work_item_assigned_user"
                                             class="form-control">
                                         <option value="" selected="selected">Type username...</option>
@@ -138,7 +139,8 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <a class="btn btn-warning btn-block" href="{{ route('home') }}">
+                                    <a class="btn btn-warning btn-block"
+                                       href="{{ route('projects.show', ['id' => $project->id]) }}">
                                         <i class="fa fa-ban" aria-hidden="true"></i>
                                         Cancel
                                     </a>
@@ -181,7 +183,7 @@
                     },
                     cache: true
                 },
-                minimumInputLength: 3,
+                minimumInputLength: 3
             });
 
             $("#new_work_item_parent").select2();

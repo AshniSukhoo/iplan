@@ -4,12 +4,6 @@ namespace Iplan\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Iplan\Entity\AccountStatus
- *
- * @property-read \Illuminate\Database\Eloquent\Collection|\Iplan\Entity\User[] $users
- * @mixin \Eloquent
- */
 class AccountStatus extends Model
 {
     /**

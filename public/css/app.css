@@ -14,12 +14,12 @@ hr, img {
     border: 0
 }
 
-body{
+body {
     margin: 0;
-    padding-top: 70px;
+    padding-top: 90px;
 }
 
-figure{
+figure {
     margin: 0
 }
 
@@ -6868,21 +6868,15 @@ button.close {
     left: 40%;
 }
 
-.project-pagination-link {
-    bottom: 30px;
-    position: absolute;
-    left: 40%;
-}
-
-.footer{
+.footer {
     background-color: #3097d1;
     height: 50px;
     width: 100%;
     font-size: 1.1em;
     color: #ffffff;
     text-align: center;
-    bottom:0;
-    margin-top:20px;
+    bottom: 0;
+    margin-top: 20px;
     padding-top: 10px;
 }
 
@@ -6890,17 +6884,18 @@ button.close {
 *
 *footer for login & registration & welcome
 */
-.footer-bar{
-    position:absolute;
+.footer-bar {
+    position: absolute;
     background-color: #3097d1;
     height: 50px;
     width: 100%;
     font-size: 1.1em;
     color: #ffffff;
     text-align: center;
-    bottom:0;
+    bottom: 0;
     padding-top: 10px;
 }
+
 /*
 *welcome page
 */
@@ -6921,11 +6916,10 @@ button.close {
     background-position-y: -100px;
 }
 
-
 /*
  * Body with a background
  */
-.background-body{
+.background-body {
     background-image: url("/img/student-bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;

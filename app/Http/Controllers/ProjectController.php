@@ -38,7 +38,7 @@ class ProjectController extends Controller
 
         // Get all projects => Project::where('user_id', '=', $user->id)
         $projects = $user->projects()
-                         ->paginate();
+                         ->paginate(6);
 
         // Return View with projects.
         return view('projects.project', ['projects' => $projects]);
@@ -66,15 +66,15 @@ class ProjectController extends Controller
     {
         //set validations rules
         $this->validate($request, [
-            'new_project_name' => 'required',
+            'new_project_name'        => 'required',
             'new_project_description' => 'required'
         ]);
 
         // Saving data inputted
         $project = Project::create([
-            'name' => $request->input('new_project_name'),
+            'name'        => $request->input('new_project_name'),
             'description' => $request->input('new_project_description'),
-            'user_id' => Auth::user()->id
+            'user_id'     => Auth::user()->id
         ]);
 
         // Go to Single Project Created.
