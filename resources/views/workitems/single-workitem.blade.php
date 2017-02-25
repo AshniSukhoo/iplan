@@ -74,20 +74,31 @@
                                     @endif
                                 </li>
 
-                                <li role="presentation">
-                                    @if(Auth::user()->id == $project->user_id)
-                                        <form action="{{ route('projects.destroy', ['id'=>$project->id ]) }}" method="POST" style="display: inline-block;">
-                                            {{ method_field('DELETE') }}
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        @if(Auth::user()->id == $project->user_id)
+                                            <a class="btn btn-primary btn-block" href="{{ route('projects.edit', ['id'=>$project->id ]) }}">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                Edit project
+                                            </a>
+                                        @endif
+                                    </div>
 
-                                            {{ csrf_field() }}
+                                    <div class="col-md-12">
+                                        @if(Auth::user()->id == $project->user_id)
+                                            <form onsubmit="return confirm('Are you sure you want to delete this project ?')" action="{{ route('projects.destroy', ['id'=>$project->id ]) }}" method="POST">
+                                                {{ method_field('DELETE') }}
 
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                                Delete
-                                            </button>
-                                        </form>
-                                    @endif
-                                </li>
+                                                {{ csrf_field() }}
+
+                                                <button type="submit" class="btn btn-danger btn-block">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
                             </ul>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Iplan\Entity\User
  *
- * @property-read \Iplan\Entity\AccountStatus                                                                               $accountStatus
+ * @property-read \Iplan\Entity\AccountStatus $accountStatus
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
  * @mixin \Eloquent
@@ -16,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,7 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-    
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -39,7 +39,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    
+
     /**
      * The attributes that should be mutated to dates.
      *
@@ -49,7 +49,7 @@ class User extends Authenticatable
         'created_at',
         'updated_at'
     ];
-    
+
     /**
      * Get the Full name of the User.
      *
@@ -59,7 +59,7 @@ class User extends Authenticatable
     {
         return $this->first_name . ' ' . $this->last_name;
     }
-    
+
     /**
      * Account status of the User.
      *
@@ -69,7 +69,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AccountStatus::class);
     }
-    
+
     /**
      * User's verification token.
      *
@@ -79,7 +79,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(VerificationToken::class);
     }
-    
+
     /**
      * Projects of a User.
      *
@@ -88,5 +88,15 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * All Projects which User is a member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function projectsUserIsMemberOf()
+    {
+        return $this->belongsToMany(Project::class);
     }
 }

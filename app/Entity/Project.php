@@ -21,12 +21,22 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
-    /*
-     * project's work items
+    /**
+     * Return Members of this Project.
      *
-     * one project may have many work item
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function projectWorkItem()
+    public function members()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * One project may have many work items
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function workItemsOfProject()
     {
         return $this->hasMany(WorkItem::class);
     }

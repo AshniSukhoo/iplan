@@ -48,3 +48,5 @@ Route::resource('projects', 'ProjectController');
  * work items' route
  */
 Route::resource('projects/{project_id}/work-items', 'WorkItemController');
+
+Route::get('search-user-of-project/{project}', 'ProjectController@searchUser')->name('searchUserForProject');

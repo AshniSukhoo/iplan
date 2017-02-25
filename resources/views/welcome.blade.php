@@ -120,6 +120,9 @@
 
     </div>
 
-    @include('layouts.footer')
+    <div class="footer">
+        @include('layouts.footer')
+    </div>
+
     <!--/.container-->
 @stop

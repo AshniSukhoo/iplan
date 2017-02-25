@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/summernote/summernote.css') }}" rel="stylesheet">
+    @yield('css')
 
     <!-- Scripts -->
     <script>
@@ -25,7 +26,7 @@
 <body @section('body-class')
       class="main-body"
         @show>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
 
@@ -46,7 +47,9 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    &nbsp;
+                    <a href= "{{ url('/') }}">
+                        <img src="/img/LogoIcon.png" alt="logo" style="width:50px;height:50px;">
+                    </a>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

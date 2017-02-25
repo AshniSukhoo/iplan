@@ -22,7 +22,7 @@ class CreateWorkItemsTable extends Migration
             $table->string('type');
             $table->unsignedInteger('priority');
             $table->unsignedInteger('estimated_time');
-            $table->unsignedInteger('parent_id');
+            $table->unsignedInteger('parent_id')->nullable();
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();

@@ -7,11 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 class WorkItem extends Model
 {
     /**
-     * Projects' work items
+     * The attributes that are mass assignable.
      *
-     * one work item belong only to one project
+     * @var array
      */
-    public function projectsWorkItems()
+    protected $fillable = [
+        'user_id',
+        'project_id',
+        'assigned_user_id',
+        'title',
+        'type',
+        'priority',
+        'estimated_time',
+        'parent_id',
+        'description'
+    ];
+
+    /**
+     * One WorkItem belong only to one project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function projectOfWorkItem()
     {
         return $this->belongsTo(Project::class);
     }

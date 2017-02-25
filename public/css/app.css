@@ -14,7 +14,12 @@ hr, img {
     border: 0
 }
 
-body, figure {
+body{
+    margin: 0;
+    padding-top: 70px;
+}
+
+figure{
     margin: 0
 }
 
@@ -6883,7 +6888,7 @@ button.close {
 
 /*
 *
-*footer for login & registration
+*footer for login & registration & welcome
 */
 .footer-bar{
     position:absolute;
@@ -6894,6 +6899,7 @@ button.close {
     color: #ffffff;
     text-align: center;
     bottom:0;
+    padding-top: 10px;
 }
 /*
 *welcome page

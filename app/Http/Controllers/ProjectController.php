@@ -16,7 +16,7 @@ class ProjectController extends Controller
         $this->middleware('auth');
 
         $this->middleware('projects.can.access')->except([
-            'index', 'create', 'store'
+            'index', 'create', 'store', 'searchUser'
         ]);
 
         $this->middleware('projects.can.modify')->only([
@@ -35,15 +35,15 @@ class ProjectController extends Controller
     {
         // Get the currently authenticated user.
         $user = $request->user();
-        
+
         // Get all projects => Project::where('user_id', '=', $user->id)
         $projects = $user->projects()
                          ->paginate();
-        
+
         // Return View with projects.
         return view('projects.project', ['projects' => $projects]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -54,7 +54,7 @@ class ProjectController extends Controller
         // Load the view with create new project forrm
         return view('projects.create-new-project');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -66,7 +66,7 @@ class ProjectController extends Controller
     {
         //set validations rules
         $this->validate($request, [
-            'new_project_name'        => 'required',
+            'new_project_name' => 'required',
             'new_project_description' => 'required'
         ]);
 
@@ -82,7 +82,7 @@ class ProjectController extends Controller
             'success_message' => 'The project was sucessfully created.'
         ]);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -94,11 +94,11 @@ class ProjectController extends Controller
     {
         // Get the Specific project using it's ID.
         $project = Project::where('id', '=', $id)->first();
-        
+
         // Load the view with project
         return view('projects.single-project', ['project' => $project]);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,12 +114,12 @@ class ProjectController extends Controller
         // Load the view form with project fields
         return view('projects.edit-single-project', ['project' => $project]);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -127,18 +127,18 @@ class ProjectController extends Controller
     {
         //set validations rules
         $this->validate($request, [
-            'project_name'        => 'required',
+            'project_name' => 'required',
             'project_description' => 'required'
         ]);
 
         // Get project with specific id and update the rows
-        $projectWasUpdated =  Project::where('id', '=', $id)->update([
+        $projectWasUpdated = Project::where('id', '=', $id)->update([
             'name' => $request->input('project_name'),
             'description' => $request->input('project_description')
         ]);
 
         // Check if Update was successful.
-        if($projectWasUpdated) {
+        if ($projectWasUpdated) {
             return redirect(route('projects.show', ['id' => $id]))->with([
                 'success_message' => 'Project was updated sucessfully'
             ]);
@@ -148,10 +148,9 @@ class ProjectController extends Controller
             ]);
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
-
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
@@ -162,7 +161,7 @@ class ProjectController extends Controller
         $projectWasDeleted = Project::where('id', '=', $id)->delete();
 
         // Check if Project was deleted.
-        if($projectWasDeleted) {
+        if ($projectWasDeleted) {
             return redirect(route('projects.index'))->with([
                 'success_message' => 'Project was deleted'
             ]);
@@ -171,5 +170,38 @@ class ProjectController extends Controller
                 'Sorry an error occured, could not deleted project.'
             ]);
         }
+    }
+
+    /**
+     * Find Users on a project.
+     *
+     * @param Project $project
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function searchUser(Project $project, Request $request)
+    {
+        // Search or Users
+        $users = $project->members()
+                         ->where('first_name', 'like', $request->name . '%')
+                         ->orWhere('last_name', 'like', $request->name . '%')
+                         ->orWhere('email', 'like', '%' . $request->name . '%')
+                         ->orWhere(\DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', $request->name . '%')
+                         ->get();
+
+        // If we have users.
+        if ($users->isEmpty()) {
+            return [];
+        }
+
+        return [
+            'items' => $users->transform(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'text' => $user->full_name
+                ];
+            })
+        ];
     }
 }
