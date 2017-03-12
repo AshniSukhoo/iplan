@@ -50,3 +50,8 @@ Route::resource('projects', 'ProjectController');
 Route::resource('projects/{project_id}/work-items', 'WorkItemController');
 
 Route::get('search-user-of-project/{project}', 'ProjectController@searchUser')->name('searchUserForProject');
+/*
+ * route to search for parent work item
+ * controller work ite
+ */
+Route::get('search-parent-work-item/{project}', 'WorkItemController@autoCompleteWorkItemsSearch')->name('searchParentWorkItem');

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a0cbedb21001352466862e5c4073ac79",
-    "content-hash": "52d9554af100efc619bb1a72c2e2b6a1",
+    "hash": "a92aaf43eb7542be86ebb5149f766151",
+    "content-hash": "8372a60b41b0bd678b60e297cb26f85d",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -622,22 +622,22 @@
         },
         {
             "name": "genealabs/laravel-caffeine",
-            "version": "0.4.2",
+            "version": "0.3.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GeneaLabs/laravel-caffeine.git",
-                "reference": "19c956b2194da73233b9f36eec77e3ca1848b3bf"
+                "reference": "166e2ca08af7cc62a59360f33e03d1cb8478df6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GeneaLabs/laravel-caffeine/zipball/19c956b2194da73233b9f36eec77e3ca1848b3bf",
-                "reference": "19c956b2194da73233b9f36eec77e3ca1848b3bf",
+                "url": "https://api.github.com/repos/GeneaLabs/laravel-caffeine/zipball/166e2ca08af7cc62a59360f33e03d1cb8478df6a",
+                "reference": "166e2ca08af7cc62a59360f33e03d1cb8478df6a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/routing": "5.1.* || 5.3.* || 5.4.*",
-                "illuminate/support": "5.1.* || 5.3.* || 5.4.*",
-                "php": ">=7.0.0"
+                "illuminate/routing": "~5.1",
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.0"
             },
             "type": "library",
             "autoload": {
@@ -656,7 +656,7 @@
                 }
             ],
             "description": "Keeping Your Laravel Forms Awake",
-            "time": "2017-02-03 03:08:44"
+            "time": "2016-09-25 01:24:03"
         },
         {
             "name": "guzzlehttp/psr7",

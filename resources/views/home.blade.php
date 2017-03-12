@@ -18,9 +18,23 @@
                         <div class="spark-settings-tabs">
                             <ul class="nav spark-settings-stacked-tabs" role="tablist">
                                 <li role="presentation">
+                                    <a href="">
+                                        <i class="fa fa-bell" aria-hidden="true"></i>
+                                        Notification
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
                                     <a href="{{ route('projects.index') }}">
                                         <i class="fa fa-file" aria-hidden="true"></i>
                                         My Projects
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="{{--{{ route('work-items.index', ['project_id'=>$project->id ]) }}--}}">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                      My Work Items
                                     </a>
                                 </li>
 
@@ -31,18 +45,6 @@
                                     </a>
                                 </li>
 
-                                <li role="presentation">
-                                    <a href="">
-                                        <i class="fa fa-bell" aria-hidden="true"></i>
-                                        Notification
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="">
-                                       know know know whos
-                                    </a>
-                                </li>
 
                                 <li role="presentation">
                                     <a href="">

@@ -186,7 +186,25 @@
                 minimumInputLength: 3
             });
 
-            $("#new_work_item_parent").select2();
+            $("#new_work_item_parent").select2({
+                ajax: {
+                    url: "{{ route('searchParentWorkItem', ['project' => $project->id]) }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            parent: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data.items
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 3
+            });
         });
     </script>
 @endsection

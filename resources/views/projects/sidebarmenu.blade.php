@@ -6,7 +6,7 @@
     <div class="panel-body">
         <div class="spark-settings-tabs">
             <ul class="nav spark-settings-stacked-tabs" role="tablist">
-                <li role="presentation">
+                              <li role="presentation">
                     <a href="{{ route('projects.index') }}">
                         <i class="fa fa-file" aria-hidden="true"></i>
                         My Projects
@@ -28,7 +28,7 @@
                 </li>
 
                 <li role="presentation">
-                    <a href="">
+                    <a href=" {{route('work-items.create', ['project_id'=>$project->id ])}} ">
                         <i class="fa fa-thumb-tack" aria-hidden="true"></i>
                         Create work item
                     </a>

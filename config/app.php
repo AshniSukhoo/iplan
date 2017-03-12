@@ -169,6 +169,7 @@ return [
         PercyMamedy\LaravelDevBooter\ServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
+        GeneaLabs\LaravelCaffeine\LaravelCaffeineServiceProvider::class,
 
         /*
          * Application Service Providers...

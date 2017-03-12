@@ -182,7 +182,7 @@ class ProjectController extends Controller
      */
     public function searchUser(Project $project, Request $request)
     {
-        // Search or Users
+        // Search for Users
         $users = $project->members()
                          ->where('first_name', 'like', $request->name . '%')
                          ->orWhere('last_name', 'like', $request->name . '%')
