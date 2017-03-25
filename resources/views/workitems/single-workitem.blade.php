@@ -60,7 +60,7 @@
                                     </a>
                                 </li>
 
-                                <li  role="presentation">
+                                <li role="presentation">
                                     <a href="">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         Work item created:
@@ -110,33 +110,36 @@
                             <b>Work item description:</b>
                             {!! $workitem->description !!}
                         </p>
-                    </div>   <!--/.panel-body-->
+                    </div>
+                    <!--/.panel-body-->
 
                     <div class="panel-body">
+                        @can('modify', [$workitem, $project])
                         <div class="col-md-3 ">
-                            @if(Auth::user()->id == $project->user_id)
-                                <a class="btn btn-primary btn-block" href="{{ route('work-items.edit', ['project_id' => $project->id, 'work-item_id' => $workitem->id  ]) }}">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    Edit Work item
-                                </a>
-                            @endif
+                            <a class="btn btn-primary btn-block"
+                               href="{{ route('work-items.edit', ['project_id' => $project->id, 'work-item_id' => $workitem->id  ]) }}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                Edit Work item
+                            </a>
                         </div>
 
                         <div class="col-md-3">
-                            @if(Auth::user()->id == $project->user_id)
-                                <form onsubmit="return confirm('Are you sure you want to delete this project ?')" action="{{ route('projects.destroy', ['id'=>$project->id ]) }}" method="POST">
-                                    {{ method_field('DELETE') }}
+                            <form onsubmit="return confirm('Are you sure you want to delete this work item ?')"
+                                  action="{{ route('work-items.destroy', ['project_id'=>$project->id, 'id' => $workitem->id  ]) }}"
+                                  method="POST">
+                                {{ method_field('DELETE') }}
 
-                                    {{ csrf_field() }}
+                                {{ csrf_field() }}
 
-                                    <button type="submit" class="btn btn-danger btn-block">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                        Delete
-                                    </button>
-                                </form>
-                            @endif
+                                <button type="submit" class="btn btn-danger btn-block">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    Delete
+                                </button>
+                            </form>
                         </div>
-                    </div>  <!--/.panel-body-->
+                        @endcan
+                    </div>
+                    <!--/.panel-body-->
 
 
                 </div>

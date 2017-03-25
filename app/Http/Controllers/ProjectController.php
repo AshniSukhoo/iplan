@@ -16,7 +16,7 @@ class ProjectController extends Controller
         $this->middleware('auth');
 
         $this->middleware('projects.can.access')->except([
-            'index', 'create', 'store', 'searchUser'
+            'index', 'create', 'store', 'searchUser', 'getAssignedProject'
         ]);
 
         $this->middleware('projects.can.modify')->only([
@@ -38,10 +38,11 @@ class ProjectController extends Controller
 
         // Get all projects => Project::where('user_id', '=', $user->id)
         $projects = $user->projects()
+                         ->with('workItemsOfProject')
                          ->paginate(6);
 
         // Return View with projects.
-        return view('projects.project', ['projects' => $projects]);
+        return view('projects.project', ['projects' => $projects, 'title' => 'My Projects']);
     }
 
     /**
@@ -66,15 +67,15 @@ class ProjectController extends Controller
     {
         //set validations rules
         $this->validate($request, [
-            'new_project_name'        => 'required',
+            'new_project_name' => 'required',
             'new_project_description' => 'required'
         ]);
 
         // Saving data inputted
         $project = Project::create([
-            'name'        => $request->input('new_project_name'),
+            'name' => $request->input('new_project_name'),
             'description' => $request->input('new_project_description'),
-            'user_id'     => Auth::user()->id
+            'user_id' => Auth::user()->id
         ]);
 
         // Go to Single Project Created.
@@ -173,35 +174,24 @@ class ProjectController extends Controller
     }
 
     /**
-     * Find Users on a project.
+     * Get projects that user is a member of.
      *
      * @param Project $project
      * @param Request $request
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function searchUser(Project $project, Request $request)
+    public function getAssignedProject(Request $request)
     {
-        // Search for Users
-        $users = $project->members()
-                         ->where('first_name', 'like', $request->name . '%')
-                         ->orWhere('last_name', 'like', $request->name . '%')
-                         ->orWhere('email', 'like', '%' . $request->name . '%')
-                         ->orWhere(\DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', $request->name . '%')
-                         ->get();
+        //Get the currently user.
+        $user = $request->user();
 
-        // If we have users.
-        if ($users->isEmpty()) {
-            return [];
-        }
+        //Get all assigned project ID of project members
+        $assignedProjects = $user->projectsUserIsMemberOf()
+                                 ->with('workItemsOfProject')
+                                 ->paginate(6);
 
-        return [
-            'items' => $users->transform(function ($user) {
-                return [
-                    'id' => $user->id,
-                    'text' => $user->full_name
-                ];
-            })
-        ];
+        // Return View with projects.
+        return view('projects.project', ['projects' => $assignedProjects, 'title' => 'Assigned Projects']);
     }
 }

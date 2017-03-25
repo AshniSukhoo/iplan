@@ -12,6 +12,24 @@ use Illuminate\Support\Facades\Auth;
 
 class WorkItemController extends Controller
 {
+    /*
+     * Work Item constructor
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('projects.can.access')->only([
+            'index', 'create', 'store', 'autoCompleteWorkItemsSearch'
+        ]);
+
+        $this->middleware('work-items.can.access')->only(['show']);
+
+        $this->middleware('work-items.can.modify')->only([
+            'edit', 'update', 'destroy'
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,10 +44,15 @@ class WorkItemController extends Controller
         $project = Project::where('id', '=', $project_id)->first();
 
         // Create  query to select workitem with associated project id for a specific user
-        $workItems = $project->workItemsOfProject();
+        $workItems = $project->workItemsOfProject()->orderBy('priority');
 
         if ($request->has('status')) {
             $workItems->where('status', '=', $request->status);
+        }
+
+        if ($request->has('search_work_item_title')) {
+            $workItems->where('title', 'LIKE', $request->search_work_item_title.'%');
+
         }
 
         // Return View with workitems.
@@ -114,7 +137,7 @@ class WorkItemController extends Controller
         $project = Project::find($project_id);
 
         // Get the Specific work item using it's ID.
-        $workitem = WorkItem::where('id', '=', $id)->first();
+        $workitem = WorkItem::where('id', '=', $id)->firstOrFail();
 
         // Load the view with project
         return view('workitems.single-workitem', [
@@ -181,6 +204,7 @@ class WorkItemController extends Controller
             'estimated_time' => $request->input('work_item_estimated_time'),
             'type' => $request->input('work_item_type'),
             'priority' => $request->input('work_item_priority'),
+            'status' => $request->input('work_item_status'),
 
             'user_id' => Auth::user()->id,
             'project_id' => $project_id,
@@ -208,7 +232,24 @@ class WorkItemController extends Controller
      */
     public function destroy($project_id, $id)
     {
-        //
+
+        //Search project id
+        $project = Project::find($project_id);
+
+        //Get Work item associated with project via id
+        $workItemWasDeleted = WorkItem::where('id', '=', $id)->delete();
+
+
+        //Check if work item was deleted
+        if ($workItemWasDeleted) {
+            return redirect(route('work-items.index', ['project_id' => $project_id]))->with([
+                'success_message' => 'Work Item was deleted'
+            ]);
+        } else {
+            return redirect(route('work-items.show', ['id' => $id, 'project_id' => $project_id]))->withErrors([
+                'Sorry an error has occurred, could not delete work item!'
+            ]);
+        }
     }
 
 

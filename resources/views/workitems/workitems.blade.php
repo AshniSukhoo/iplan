@@ -9,9 +9,13 @@
 @stop
 
 @section('content')
-    <
     <div class="container">
         <div class="row">
+            @if(session('success_message'))
+                <div class="alert alert-success">
+                    {{ session('success_message') }}
+                </div>
+            @endif
             <div class="span12">
                 <div class="widget stacked widget-table action-table">
                     <div class="page-header">
@@ -23,7 +27,9 @@
 
                         <div class="span2 side-by-side clearfix">
                             <select id="Sort" class="form-control">
-                                <option value="{{ route('work-items.index', ['project_id' => $project->id]) }}">Sort By</option>
+                                <option value="{{ route('work-items.index', ['project_id' => $project->id]) }}">Sort
+                                    By
+                                </option>
                                 <option value="{{ route('work-items.index', ['project_id' => $project->id, 'status' => 'open']) }}"
                                         {{ Request::has('status') && Request::input('status') == 'open' ? 'selected' : '' }}
                                         >
@@ -37,10 +43,13 @@
                             </select>
                         </div>
                         <div class="span3 side-by-side clearfix offset4">
-                            <form action="#" method="get">
+                            <form action="" method="get">
                                 <div class="input-group">
-                                    <input class="form-control" id="system-search" name="q" placeholder="Search for"
-                                           required="">
+                                    <input class="form-control" id="system-search" name="search_work_item_title"
+                                           placeholder="Search for"
+                                           value="{{ request()->has('search_work_item_title') ? request()->search_work_item_title : '' }}">
+                                    <input id="status-search" type="hidden" name="status"
+                                           value="{{ Request::has('status') ? Request::input('status') : '' }}">
 								<span class="input-group-btn">
 									<button type="submit" class="btn btn-default" data-original-title="" title=""><i
                                                 class="glyphicon glyphicon-search"></i></button>
@@ -53,7 +62,7 @@
                     @if(! $workItems->isEmpty())
 
                         <div class="widget-content">
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-bordered bg-warning">
                                 <thead>
                                 <tr>
                                     <th id="">
@@ -98,20 +107,28 @@
                                         <td>{{ $workItem->status }}</td>
 
                                         <td class="td-actions">
-                                            <a class="btn btn-default btn-xs"
-                                               href="{{ route('work-items.edit', ['project_id' => $project->id, 'work-item_id' => $workItem->id ]) }}">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                                Edit
-                                            </a>
-                                            <a class="btn btn-default btn-xs" href="javascript:;">
-                                                <span class="glyphicon glyphicon-remove"></span> Remove
-                                            </a>
-                                            <a class="btn btn-default btn-xs" href="{{ route('work-items.show', [
-                                        'project_id' => $project->id,
-                                        'work-item_id' => $workItem->id
-                                      ]) }}">
-                                                <span class="glyphicon glyphicon-search"></span> View
-                                            </a>
+                                            @can('modify', [$workItem, $project])
+                                            <form onsubmit="return confirm('Are you sure you want to delete this work item ?')"
+                                                  action="{{ route('work-items.destroy', ['project_id'=>$project->id, 'work-item_id' => $workItem->id ]) }}"
+                                                  method="POST">
+                                                <a class="btn btn-default btn-xs"
+                                                   href="{{ route('work-items.edit', ['project_id' => $project->id, 'work-item_id' => $workItem->id ]) }}">
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                    Edit
+                                                </a>
+                                                {{ method_field('DELETE') }}
+                                                {{ csrf_field() }}
+                                                <button class="btn btn-default btn-xs">
+                                                    Remove
+                                                </button>
+                                                @endcan
+                                                <a class="btn btn-default btn-xs" href="{{ route('work-items.show', [
+                                                'project_id' => $project->id,
+                                                'work-item_id' => $workItem->id
+                                              ]) }}">
+                                                    <span class="glyphicon glyphicon-search"></span> View
+                                                </a>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -138,7 +155,6 @@
                 @endif
             </div>
         </div>
-    </div>
     </div>
 @stop
 

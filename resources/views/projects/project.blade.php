@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-    My projects
+    {{ $title }}
 @stop
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1> My projects </h1>
+                <h1>{{ $title }}</h1>
             </div>
         </div>
 
@@ -32,27 +32,23 @@
                                 </li>
 
                                 <li role="presentation">
+                                    <a href="{{ route('projects.index') }}">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                        My Projects
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="{{ route('assignedProject') }}">
+                                        <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+                                        Assigned Projects
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
                                     <a href="{{ route('projects.create') }}">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                         Create new project
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="">
-                                        I dont wana know
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="">
-                                        know know know whos
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="">
-                                        taking you home home
                                     </a>
                                 </li>
                             </ul>
@@ -76,6 +72,7 @@
                                     <div class="project project-info">
                                         <div class="shape">
                                             <div class="shape-text">
+                                                {{ $project->percentageCompleted }}
                                             </div>
                                         </div>
                                         <div class="project-content">
@@ -111,7 +108,7 @@
                     @endif
                 </div>
             @else
-                <div class="col-md-12">
+                <div class="col-md-9">
                     @include('projects.no-project-found')
                 </div>
                 <!--/.col-->

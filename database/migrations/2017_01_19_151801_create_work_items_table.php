@@ -32,7 +32,7 @@ class CreateWorkItemsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('assigned_user_id')->references('id')->on('users');
-            $table->foreign('parent_id')->references('id')->on('work_items');
+            $table->foreign('parent_id')->references('id')->on('work_items')->onDelete('cascade');
         });
     }
 

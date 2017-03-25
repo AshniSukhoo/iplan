@@ -11,8 +11,8 @@ class CanModifyProject
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -23,15 +23,19 @@ class CanModifyProject
         // Project id.
         $id = $request->route('project');
 
-        // Get Project.
-        $project = Project::findOrFail($id);
-
-        // Check if User cannot access project.
-        if($project->user_id != $loggedInUser->id) {
-            return redirect(route('projects.index'));
+        if($id instanceof Project) {
+            $project = $id;
+        } else {
+            // Get Project.
+            $project = Project::findOrFail($id);
         }
 
-        // Middleware passed.
-        return $next($request);
+        // Check if User can access project.
+        if ($loggedInUser->can('modify', $project)) {
+            // Middleware passed.
+            return $next($request);
+        }
+
+        return redirect(route('projects.index'));
     }
 }

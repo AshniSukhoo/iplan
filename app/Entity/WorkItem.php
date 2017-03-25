@@ -71,4 +71,9 @@ class WorkItem extends Model
         }
     }
 
+    public function assignedProject()
+    {
+        return $this->hasMany(ProjectUser::class);
+    }
+
 }

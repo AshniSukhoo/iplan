@@ -57,5 +57,9 @@ class Kernel extends HttpKernel
         // Project Middlewares.
         'projects.can.access' => \Iplan\Http\Middleware\CanAccessProject::class,
         'projects.can.modify' => \Iplan\Http\Middleware\CanModifyProject::class,
+
+        //Work Item Middleware.
+        'work-items.can.access' =>\Iplan\Http\Middleware\CanAccessWorkItem::class,
+        'work-items.can.modify' =>\Iplan\Http\Middleware\CanModifyWorkItem::class,
     ];
 }

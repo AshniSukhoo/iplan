@@ -3,6 +3,7 @@
 namespace Iplan\Entity;
 
 use Illuminate\Notifications\Notifiable;
+use Iplan\AssignedProject;
 use Iplan\Presenters\Accessors\UserAccessors;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

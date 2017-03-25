@@ -13,7 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Iplan\Model' => 'Iplan\Policies\ModelPolicy',
+        \Iplan\Entity\Project::class => \Iplan\Policies\ProjectPolicy::class,
+        \Iplan\Entity\WorkItem::class => \Iplan\Policies\WorkItemPolicy::class
     ];
 
     /**
