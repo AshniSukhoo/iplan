@@ -1,7 +1,7 @@
 <div class="profile-card">
     <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
     <div class="avatar">
-        <img src="{{ $user->avatar }}"/>
+        <img src="{{ $user->avatar }}" alt="{{ $user->full_name }}"/>
     </div>
     <div class="content">
         <p>
@@ -9,7 +9,7 @@
             {{ $user->full_name }}
         </p>
         <p>
-            <i class="fa fa-suitcase" aria-hidden="true"></i> Web Developer
+            <i class="fa fa-suitcase" aria-hidden="true"></i> {{ $user->job_title }}
         </p>
 
         @if(isset($actionTemplate))

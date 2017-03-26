@@ -75,6 +75,12 @@
                             </li>
                             <li class="divider"></li>
                             <li>
+                                <a href="{{ route('profile.show', ['user' => Auth::user()->id]) }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i> My Profile
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
                                 <a href="{{ route('projects.index') }}">
                                     <i class="fa fa-product-hunt" aria-hidden="true"></i> My Projects
                                 </a>

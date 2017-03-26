@@ -77,3 +77,10 @@ Route::get('search-user-of-project/{project}', 'ProjectMembersController@searchM
  */
 Route::get('search-non-member-of-project/{project}', 'ProjectMembersController@searchNonMembers')->name('searchNonUserForProject');
 
+/*
+ * Route for user profile
+ */
+Route::resource('profile', 'UserProfileController', [
+    'only' => ['show', 'edit', 'update'],
+    'parameters' => ['profile' => 'user']
+]);

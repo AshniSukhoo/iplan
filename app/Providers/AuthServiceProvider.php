@@ -14,7 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         \Iplan\Entity\Project::class => \Iplan\Policies\ProjectPolicy::class,
-        \Iplan\Entity\WorkItem::class => \Iplan\Policies\WorkItemPolicy::class
+        \Iplan\Entity\WorkItem::class => \Iplan\Policies\WorkItemPolicy::class,
+        \Iplan\Entity\User::class => \Iplan\Policies\UserPolicy::class
     ];
 
     /**
