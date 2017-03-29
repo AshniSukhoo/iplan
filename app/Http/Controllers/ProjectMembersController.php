@@ -2,6 +2,7 @@
 
 namespace Iplan\Http\Controllers;
 
+use Carbon\Carbon;
 use Iplan\Entity\User;
 use Iplan\Http\Requests;
 use Iplan\Entity\Project;
@@ -125,11 +126,11 @@ class ProjectMembersController extends Controller
     {
         // Search for Users
         $users = $project->members()
-                         ->where('first_name', 'like', $request->name . '%')
-                         ->orWhere('last_name', 'like', $request->name . '%')
-                         ->orWhere('email', 'like', '%' . $request->name . '%')
-                         ->orWhere(\DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', $request->name . '%')
-                         ->get();
+                         ->where(function ($query) use ($request) {
+                             $query->where(\DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', $request->name . '%')
+                                   ->orWhere('last_name', 'like', $request->name . '%')
+                                   ->orWhere('email', 'like', '%' . $request->name . '%');
+                         })->get();
 
         // If we have users.
         if ($users->isEmpty()) {

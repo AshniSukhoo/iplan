@@ -24,46 +24,18 @@
                     <div class="panel-body">
                         <div class="spark-settings-tabs">
                             <ul class="nav spark-settings-stacked-tabs" role="tablist">
-                                <li role="presentation">
-                                    <a href="{{ route('home') }}">
-                                        <i class="fa fa-dashboard" aria-hidden="true"></i>
-                                        Back to Dashboard
-                                    </a>
-                                </li>
 
                                 <li role="presentation">
-                                    <a href="{{ route('projects.index') }}">
-                                        <i class="fa fa-file" aria-hidden="true"></i>
-                                        My Projects
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="{{ route('work-items.index', ['project_id'=>$project->id ]) }}">
-                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                        My Work items
-                                    </a>
-                                </li>
-
-
-                                <li role="presentation">
-                                    <a href=" {{route('work-items.create', ['project_id'=>$project->id ]) }}">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                        Create new work item
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="">
+                                    <a href="{{ route('profile.show', ['user' => $workitem->assignedUser->id]) }}">
                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                        Work item owner: {{ Auth::user()->first_name }}
+                                        Assigned to: {{ $workitem->assignedUser->full_name }}
                                     </a>
                                 </li>
 
                                 <li role="presentation">
                                     <a href="">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        Work item created:
+                                        Created:
                                         <abbr title="{{ $workitem->created_at->toDayDateTimeString() }}">
                                             {{ $workitem->created_at->diffForHumans()}}
                                         </abbr>
@@ -73,7 +45,7 @@
                                 <li role="presentation">
                                     <a href="">
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        Work item last updated:
+                                        Updated:
                                         <abbr title="{{ $workitem->updated_at->toDayDateTimeString() }}">
                                             {{ $workitem->updated_at->diffForHumans()}}
                                         </abbr>

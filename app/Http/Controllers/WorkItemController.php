@@ -5,10 +5,12 @@ namespace Iplan\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
+use Iplan\Entity\User;
 use Iplan\Entity\WorkItem;
 use Iplan\Http\Requests;
 use Iplan\Entity\Project;
 use Illuminate\Support\Facades\Auth;
+use Iplan\Notifications\AssignWorkItemToMember;
 
 class WorkItemController extends Controller
 {
@@ -51,7 +53,7 @@ class WorkItemController extends Controller
         }
 
         if ($request->has('search_work_item_title')) {
-            $workItems->where('title', 'LIKE', $request->search_work_item_title.'%');
+            $workItems->where('title', 'LIKE', $request->search_work_item_title . '%');
 
         }
 
@@ -94,7 +96,7 @@ class WorkItemController extends Controller
         ]);
 
         if ($request->input('new_work_item_assigned_user') != '') {
-            $assingedUser = $request->input('new_work_item_assigned_user');
+            $assingedUser = User::findOrFail($request->input('new_work_item_assigned_user'));
         } else {
             $assingedUser = null;
         }
@@ -115,9 +117,18 @@ class WorkItemController extends Controller
 
             'user_id' => Auth::user()->id,
             'project_id' => $project_id,
-            'assigned_user_id' => $assingedUser,
+            'assigned_user_id' => $assingedUser->id,
             'parent_id' => $parentId
         ]);
+
+
+        // Check if work item has assigned user
+        if (!is_null($assingedUser) && !Auth::user()->is($assingedUser)) {
+            // Notify User.
+            $assingedUser->notify(
+                new AssignWorkItemToMember(Auth::user(), Project::findOrFail($project_id), $workitem)
+            );
+        }
 
         // Go to Single work item Created.
         return redirect(route('work-items.show', ['id' => $workitem->id, 'project_id' => $project_id]))->with([
@@ -187,7 +198,7 @@ class WorkItemController extends Controller
         ]);
 
         if ($request->input('work_item_assigned_user') != '') {
-            $assingedUser = $request->input('work_item_assigned_user');
+            $assingedUser = User::findOrFail($request->input('work_item_assigned_user'));
         } else {
             $assingedUser = null;
         }
@@ -208,9 +219,17 @@ class WorkItemController extends Controller
 
             'user_id' => Auth::user()->id,
             'project_id' => $project_id,
-            'assigned_user_id' => $assingedUser,
+            'assigned_user_id' => $assingedUser->id,
             'parent_id' => $parentId
         ]);
+
+        // Check if work item has assigned user
+        if (!is_null($assingedUser) && !Auth::user()->is($assingedUser)) {
+            // Notify User.
+            $assingedUser->notify(
+                new AssignWorkItemToMember(Auth::user(), Project::findOrFail($project_id), WorkItem::findOrFail($id))
+            );
+        }
 
         // Check if Update was successful.
         if ($workItemWasUpdated) {
