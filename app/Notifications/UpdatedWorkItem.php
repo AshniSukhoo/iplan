@@ -10,16 +10,16 @@ use Iplan\Entity\Project;
 use Iplan\Entity\User;
 use Iplan\Entity\WorkItem;
 
-class WorkItemCreated extends Notification
+class UpdatedWorkItem extends Notification
 {
-    use Queueable;
-
-
     protected $user;
 
     protected $project;
 
     protected $workItem;
+
+    use Queueable;
+
     /**
      * Create a new notification instance.
      *
@@ -53,7 +53,7 @@ class WorkItemCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'notification_text' => $this->user->full_name. ' created a work item on your project "'.$this->project->name.'"',
+            'notification_text' => $this->user->full_name. ' updated a work item on the project "'.$this->project->name.'"',
             'link'              =>  route('work-items.show', ['project_id'=> $this->project->id, 'work-item_id' => $this->workItem->id]),
             'icon_class'        => 'fa fa-tasks'
         ];

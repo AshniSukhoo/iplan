@@ -26,6 +26,39 @@
                             <ul class="nav spark-settings-stacked-tabs" role="tablist">
 
                                 <li role="presentation">
+                                    <a href="">
+                                        <i class="fa fa-indent" aria-hidden="true"></i>
+                                       Type:
+                                       {{ $workitem->type}}
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="">
+                                        <i class="fa fa-sort" aria-hidden="true"></i>
+                                        Priority level:
+                                        {{ $workitem->priority}}
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="">
+                                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                                        Status:
+                                        {{ $workitem->status}}
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="">
+                                        <i class="fa fa-hourglass-half" aria-hidden="true"></i>
+                                        Estimated time:
+                                        {{ $workitem->estimated_time}}
+                                        hour(s)
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
                                     <a href="{{ route('profile.show', ['user' => $workitem->assignedUser->id]) }}">
                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                         Assigned to: {{ $workitem->assignedUser->full_name }}

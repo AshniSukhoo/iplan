@@ -11,6 +11,8 @@ use Iplan\Http\Requests;
 use Iplan\Entity\Project;
 use Illuminate\Support\Facades\Auth;
 use Iplan\Notifications\AssignWorkItemToMember;
+use Iplan\Notifications\UpdatedWorkItem;
+use Iplan\Notifications\WorkItemCreated;
 
 class WorkItemController extends Controller
 {
@@ -46,7 +48,7 @@ class WorkItemController extends Controller
         $project = Project::where('id', '=', $project_id)->first();
 
         // Create  query to select workitem with associated project id for a specific user
-        $workItems = $project->workItemsOfProject()->orderBy('priority');
+        $workItems = $project->workItemsOfProject()->orderBy('priority')->orderBy('updated_at', 'desc');
 
         if ($request->has('status')) {
             $workItems->where('status', '=', $request->status);
@@ -73,6 +75,7 @@ class WorkItemController extends Controller
     {
         //Get the project associated with that work item
         $project = Project::where('id', '=', $project_id)->first();
+
 
         // Load the view with create new work item form while passing the project variable
         return view('workitems.create-new-work-item', ['project' => $project]);
@@ -121,12 +124,21 @@ class WorkItemController extends Controller
             'parent_id' => $parentId
         ]);
 
+        //get project
+        $project = Project::findOrFail($project_id);
 
         // Check if work item has assigned user
         if (!is_null($assingedUser) && !Auth::user()->is($assingedUser)) {
             // Notify User.
             $assingedUser->notify(
-                new AssignWorkItemToMember(Auth::user(), Project::findOrFail($project_id), $workitem)
+                new AssignWorkItemToMember(Auth::user(), $project, $workitem)
+            );
+        }
+
+        // Check if user is not project owner
+        if (!Auth::user()->is($project->owner)) {
+            $project->owner->notify(
+                new WorkItemCreated(Auth::user(), $project, $workitem)
             );
         }
 
@@ -134,7 +146,6 @@ class WorkItemController extends Controller
         return redirect(route('work-items.show', ['id' => $workitem->id, 'project_id' => $project_id]))->with([
             'success_message' => 'The work item was successfully created.'
         ]);
-
     }
 
     /**
@@ -209,7 +220,19 @@ class WorkItemController extends Controller
             $parentId = null;
         }
 
-        $workItemWasUpdated = WorkItem::where('id', '=', $id)->update([
+        // Get work item
+        $workItem = WorkItem::findorFail($id);
+
+        // Get project
+        $project = Project::findOrFail($project_id);
+
+        // Check if assigned User has changed.
+        $assignedUserHasChanged = false;
+        if (!is_null($assingedUser) && !$workItem->assignedUser->is($assingedUser)) {
+            $assignedUserHasChanged = true;
+        }
+
+        $workItemWasUpdated = $workItem->update([
             'title' => $request->input('work_item_title'),
             'description' => $request->input('work_item_description'),
             'estimated_time' => $request->input('work_item_estimated_time'),
@@ -225,10 +248,16 @@ class WorkItemController extends Controller
 
         // Check if work item has assigned user
         if (!is_null($assingedUser) && !Auth::user()->is($assingedUser)) {
-            // Notify User.
-            $assingedUser->notify(
-                new AssignWorkItemToMember(Auth::user(), Project::findOrFail($project_id), WorkItem::findOrFail($id))
-            );
+            if($assignedUserHasChanged) {
+                // Notify User.
+                $assingedUser->notify(
+                    new AssignWorkItemToMember(Auth::user(), $project, $workItem)
+                );
+            } else {
+                $assingedUser->notify(
+                    new UpdatedWorkItem(Auth::user(), $project, $workItem)
+                );
+            }
         }
 
         // Check if Update was successful.
