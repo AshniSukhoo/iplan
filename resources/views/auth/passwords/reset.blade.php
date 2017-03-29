@@ -4,6 +4,9 @@
     Reset Password
 @stop
 
+@section('body-class')
+    class="background-body"
+@stop
 @section('content')
     <div class="container">
         <div class="row">
@@ -73,4 +76,5 @@
             </div>
         </div>
     </div>
+
 @endsection

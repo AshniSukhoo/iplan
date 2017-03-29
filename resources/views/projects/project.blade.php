@@ -44,7 +44,6 @@
                                         Assigned Projects
                                     </a>
                                 </li>
-
                                 <li role="presentation">
                                     <a href="{{ route('projects.create') }}">
                                         <i class="fa fa-plus" aria-hidden="true"></i>

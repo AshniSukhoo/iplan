@@ -11,7 +11,7 @@
             <div class="col-md-3">
                 <div class="panel panel-default panel-flush">
                     <div class="panel-heading">
-                        Dashboard
+                        Actions <i class="fa fa-bolt" aria-hidden="true"></i>
                     </div>
 
                     <div class="panel-body">
@@ -45,12 +45,6 @@
                                     </a>
                                 </li>
 
-
-                                <li role="presentation">
-                                    <a href="">
-                                    taking you home home
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </div>

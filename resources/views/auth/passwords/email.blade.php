@@ -4,6 +4,11 @@
     Reset Password
 @stop
 
+@section('body-class')
+    class="background-body"
+@stop
+
+
 <!-- Main Content -->
 @section('content')
     <div class="container">

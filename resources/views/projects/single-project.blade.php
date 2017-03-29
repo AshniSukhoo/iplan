@@ -39,7 +39,7 @@
                                 </li>
 
                                 <li role="presentation">
-                                    <a href="">
+                                    <a href="{{ route('profile.show', ['user' => $project->owner->id ]) }}">
                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                         Owner: {{ $project->owner->id == Auth::user()->id ? 'You' : $project->owner->first_name }}
                                     </a>
