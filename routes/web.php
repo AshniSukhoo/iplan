@@ -16,7 +16,7 @@
  */
 Route::get('/', [
     'uses' => 'HomeController@getWelcomePage',
-    'as'   => 'page.welcome'
+    'as'   => 'page.welcome',
 ]);
 
 /*
@@ -36,7 +36,7 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 Route::get('verify-user-account/{verificationToken}', [
     'uses' => 'AccountVerificationController@getVerifiedToken',
-    'as'   => 'actions.verify-user-account'
+    'as'   => 'actions.verify-user-account',
 ]);
 
 /*
@@ -58,14 +58,19 @@ Route::resource('projects/{project_id}/work-items', 'WorkItemController');
  * route to search for parent work item
  * controller work item
  */
-Route::get('search-parent-work-item/{project}', 'WorkItemController@autoCompleteWorkItemsSearch')->name('searchParentWorkItem');
+Route::get('search-parent-work-item/{project}', 'WorkItemController@autoCompleteWorkItemsSearch')
+     ->name('searchParentWorkItem');
 
 /*
  * Members of Project.
  */
-Route::resource('projects/{project}/members', 'ProjectMembersController',  ['only' => [
-    'index', 'store', 'destroy'
-]]);
+Route::resource('projects/{project}/members', 'ProjectMembersController', [
+    'only' => [
+        'index',
+        'store',
+        'destroy',
+    ],
+]);
 
 /*
  * Route to search for members of projects.
@@ -75,12 +80,18 @@ Route::get('search-user-of-project/{project}', 'ProjectMembersController@searchM
 /*
  * Route to search for non member of project.
  */
-Route::get('search-non-member-of-project/{project}', 'ProjectMembersController@searchNonMembers')->name('searchNonUserForProject');
+Route::get('search-non-member-of-project/{project}', 'ProjectMembersController@searchNonMembers')
+     ->name('searchNonUserForProject');
 
 /*
  * Route for user profile
  */
 Route::resource('profile', 'UserProfileController', [
-    'only' => ['show', 'edit', 'update'],
-    'parameters' => ['profile' => 'user']
+    'only'       => ['show', 'edit', 'update'],
+    'parameters' => ['profile' => 'user'],
 ]);
+
+/*
+ * Show all my notifications.
+ */
+Route::get('notifications', 'NotificationController@index')->middleware('auth')->name('notifications');

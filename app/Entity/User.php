@@ -2,8 +2,8 @@
 
 namespace Iplan\Entity;
 
-use Illuminate\Notifications\Notifiable;
 use Iplan\AssignedProject;
+use Illuminate\Notifications\Notifiable;
 use Iplan\Presenters\Accessors\UserAccessors;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

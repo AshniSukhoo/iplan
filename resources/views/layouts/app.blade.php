@@ -18,8 +18,8 @@
 <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
-                                                    'csrfToken' => csrf_token(),
-                                                ]); ?>
+            'csrfToken' => csrf_token(),
+        ]); ?>
     </script>
 </head>
 
@@ -60,6 +60,16 @@
                     <li><a href="{{ url('/login') }}">Login</a></li>
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
+                    <li role="presentation">
+                        <a href="{{ route('notifications') }}">
+                            <i class="fa fa-bell" aria-hidden="true"></i>
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                                <span class="badge" style="background-color: #bf5329">
+                                    {{ Auth::user()->unreadNotifications->count() }}
+                                </span>
+                            @endif
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <img src="{{ Auth::user()->avatar->setDimension(30)->setFontSize(12)->toBase64() }}"

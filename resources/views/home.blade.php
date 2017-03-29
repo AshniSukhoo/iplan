@@ -18,9 +18,14 @@
                         <div class="spark-settings-tabs">
                             <ul class="nav spark-settings-stacked-tabs" role="tablist">
                                 <li role="presentation">
-                                    <a href="">
+                                    <a href="{{ route('notifications') }}">
                                         <i class="fa fa-bell" aria-hidden="true"></i>
-                                        Notification
+                                        Notifications
+                                        @if(Auth::user()->unreadNotifications->count() > 0)
+                                            <span class="badge" style="background-color: #bf5329">
+                                                {{ Auth::user()->unreadNotifications->count() }}
+                                            </span>
+                                        @endif
                                     </a>
                                 </li>
 
@@ -34,7 +39,7 @@
                                 <li role="presentation">
                                     <a href="{{--{{ route('work-items.index', ['project_id'=>$project->id ]) }}--}}">
                                         <i class="fa fa-tasks" aria-hidden="true"></i>
-                                      My Work Items
+                                        My Work Items
                                     </a>
                                 </li>
 
@@ -50,18 +55,18 @@
                     </div>
                 </div>
 
-                </div>
+            </div>
 
-                <div class="col-md-9">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Dashboard</div>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Dashboard</div>
 
-                        <div class="panel-body">
-                            You are logged in!
-                        </div>
-
+                    <div class="panel-body">
+                        You are logged in!
                     </div>
+
                 </div>
+            </div>
 
         </div>
     </div>

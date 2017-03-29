@@ -6,6 +6,7 @@ use Iplan\Entity\User;
 use Iplan\Http\Requests;
 use Iplan\Entity\Project;
 use Illuminate\Http\Request;
+use Iplan\Notifications\AddedAsMemberToProject;
 
 class ProjectMembersController extends Controller
 {
@@ -74,6 +75,9 @@ class ProjectMembersController extends Controller
 
         // Add Member to the project.
         $project->members()->attach($member->id);
+
+        // Notify User he has been added to project.
+        $member->notify(new AddedAsMemberToProject($project));
 
         return redirect()->route('members.index', ['project' => $project])
                          ->with([
