@@ -5,6 +5,7 @@ namespace Iplan\Notifications;
 use Iplan\Entity\Project;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Iplan\Mail\NotifyAddedAsMemberToProject;
 
 class AddedAsMemberToProject extends Notification
 {
@@ -37,6 +38,20 @@ class AddedAsMemberToProject extends Notification
     public function via($notifiable)
     {
         return ['database', 'mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed $notifiable
+     *
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        $emailMessage = new NotifyAddedAsMemberToProject($this->project, $notifiable);
+
+        return $emailMessage->to($notifiable->email, $notifiable->name);
     }
 
     /**

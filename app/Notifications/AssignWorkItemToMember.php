@@ -2,28 +2,43 @@
 
 namespace Iplan\Notifications;
 
-use Iplan\Entity\Project;
 use Iplan\Entity\User;
+use Iplan\Entity\Project;
+use Iplan\Entity\WorkItem;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Iplan\Entity\WorkItem;
 
 class AssignWorkItemToMember extends Notification
 {
     use Queueable;
 
+    /**
+     * User Instance.
+     *
+     * @var User
+     */
     protected $user;
 
+    /**
+     * Project Instance.
+     *
+     * @var Project
+     */
     protected $project;
 
+    /**
+     * Work item instance.
+     *
+     * @var WorkItem
+     */
     protected $workItem;
 
     /**
-     * Create a new notification instance.
+     * AssignWorkItemToMember constructor.
      *
-     * @return void
+     * @param User     $user
+     * @param Project  $project
+     * @param WorkItem $workItem
      */
     public function __construct(User $user, Project $project, WorkItem $workItem)
     {
@@ -43,6 +58,17 @@ class AssignWorkItemToMember extends Notification
         return ['database', 'mail'];
     }
 
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed $notifiable
+     *
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+
+    }
 
     /**
      * Get the array representation of the notification.

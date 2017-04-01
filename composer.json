@@ -13,7 +13,8 @@
         "doctrine/dbal": "^2.5",
         "laravolt/avatar": "^1.8",
         "intervention/imagecache": "^2.3",
-        "genealabs/laravel-caffeine": "^0.3.12"
+        "genealabs/laravel-caffeine": "^0.3.12",
+        "themsaid/laravel-mail-preview": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.2",

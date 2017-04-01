@@ -184,7 +184,7 @@ return [
         /*
          * Services Providers
          */
-        Iplan\Services\Html\HtmlServiceProvider::class
+        Iplan\Services\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -200,7 +200,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         MailThief\MailThiefServiceProvider::class,
-        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class
+        Themsaid\MailPreview\MailPreviewServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
     ],
 
     /*
