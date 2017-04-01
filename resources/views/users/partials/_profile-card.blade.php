@@ -3,7 +3,7 @@
     <div class="avatar">
         <img src="{{ $user->avatar }}" alt="{{ $user->full_name }}"/>
     </div>
-    <div class="content">
+    <div class="content" style="min-height: auto;">
         <p>
             <br>
             {{ $user->full_name }}

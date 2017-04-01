@@ -6966,14 +6966,14 @@ button.close {
     background: url('/img/student-bg.jpg');
 }
 
-#leftPanel{
-    background-color:#3097d1;
-    color:#fff;
+#leftPanel {
+    background-color: #3097d1;
+    color: #fff;
     text-align: center;
 }
 
-#rightPanel{
-    min-height:415px;
+#rightPanel {
+    min-height: 415px;
 }
 
 /* Credit to bootsnipp.com for the css for the color graph */
@@ -6987,3 +6987,39 @@ button.close {
     background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
     background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
+
+.hero-widget {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 0;
+}
+
+.hero-widget .icon {
+    display: block;
+    font-size: 96px;
+    line-height: 96px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.hero-widget var {
+    display: block;
+    height: 64px;
+    font-size: 64px;
+    line-height: 64px;
+    font-style: normal;
+}
+
+.hero-widget label {
+    font-size: 17px;
+}
+
+.hero-widget .options {
+    margin-top: 10px;
+}
+
+.well-sm:hover {
+    border: 1px solid #3097d1;
+}
+

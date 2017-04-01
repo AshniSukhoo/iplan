@@ -13,6 +13,6 @@ trait UserAccessors
      */
     public function getAvatarAttribute()
     {
-        return Avatar::create($this->full_name);
+        return Avatar::create($this->full_name)->setShape('circle');
     }
 }

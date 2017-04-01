@@ -44,7 +44,7 @@ class User extends Authenticatable
      */
     protected $dates = [
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**
@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     public function getFullNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
     /**
@@ -95,5 +95,25 @@ class User extends Authenticatable
     public function projectsUserIsMemberOf()
     {
         return $this->belongsToMany(Project::class);
+    }
+
+    /**
+     * Work items created by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function createdWorkItems()
+    {
+        return $this->hasMany(WorkItem::class, 'user_id', 'id');
+    }
+
+    /**
+     * Assigned work item of the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedWorkItems()
+    {
+        return $this->hasMany(WorkItem::class, 'assigned_user_id', 'id');
     }
 }

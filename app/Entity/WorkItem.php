@@ -2,6 +2,7 @@
 
 namespace Iplan\Entity;
 
+use Laravolt\Avatar\Facade as Avatar;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkItem extends Model
@@ -28,7 +29,7 @@ class WorkItem extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function projectOfWorkItem()
+    public function project()
     {
         return $this->belongsTo(Project::class);
     }
@@ -74,6 +75,16 @@ class WorkItem extends Model
     public function assignedProject()
     {
         return $this->hasMany(ProjectUser::class);
+    }
+
+    /**
+     * Get project avatar.
+     *
+     * @return $this
+     */
+    public function getAvatarAttribute()
+    {
+        return Avatar::create($this->title)->setDimension(150, 150)->setShape('square')->toBase64();
     }
 
 }

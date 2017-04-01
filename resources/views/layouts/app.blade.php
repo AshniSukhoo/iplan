@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/AdminLTE.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/summernote/summernote.css') }}" rel="stylesheet">
 @yield('css')
 

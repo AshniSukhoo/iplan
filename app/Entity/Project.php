@@ -2,6 +2,7 @@
 
 namespace Iplan\Entity;
 
+use Laravolt\Avatar\Facade as Avatar;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -10,7 +11,9 @@ class Project extends Model
      * {@inheritdoc}
      */
     protected $fillable = [
-        'name', 'description', 'user_id'
+        'name',
+        'description',
+        'user_id',
     ];
 
     /**
@@ -59,6 +62,16 @@ class Project extends Model
         // Get number of work items which are completed.
         $totalCompletedWorkItems = $this->workItemsOfProject()->where('status', '=', 'closed')->count();
 
-        return floor(($totalCompletedWorkItems / $totalWorkItems) * 100) . '%';
+        return floor(($totalCompletedWorkItems / $totalWorkItems) * 100).'%';
+    }
+
+    /**
+     * Get project avatar.
+     *
+     * @return $this
+     */
+    public function getAvatarAttribute()
+    {
+        return Avatar::create($this->name)->setDimension(150, 150)->setShape('square')->toBase64();
     }
 }
