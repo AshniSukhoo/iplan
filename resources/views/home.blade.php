@@ -37,13 +37,6 @@
                                 </li>
 
                                 <li role="presentation">
-                                    <a href="{{--{{ route('work-items.index', ['project_id'=>$project->id ]) }}--}}">
-                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                        My Work Items
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
                                     <a href="{{ route('projects.create') }}">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                         Create new project
