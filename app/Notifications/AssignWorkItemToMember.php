@@ -7,6 +7,7 @@ use Iplan\Entity\Project;
 use Iplan\Entity\WorkItem;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Iplan\Mail\NotifyAssignWorkItemToMember;
 
 class AssignWorkItemToMember extends Notification
 {
@@ -67,7 +68,9 @@ class AssignWorkItemToMember extends Notification
      */
     public function toMail($notifiable)
     {
+        $emailMessage = new NotifyAssignWorkItemToMember($this->project, $this->user, $this->workItem, $notifiable);
 
+        return $emailMessage->to($notifiable->email, $notifiable->name);
     }
 
     /**

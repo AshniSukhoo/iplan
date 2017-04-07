@@ -7,6 +7,7 @@ use Iplan\Entity\Project;
 use Iplan\Entity\WorkItem;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Iplan\Mail\NotifyCreatedWorkItem;
 
 class WorkItemCreated extends Notification
 {
@@ -67,7 +68,9 @@ class WorkItemCreated extends Notification
      */
     public function toMail($notifiable)
     {
+        $emailMessage = new NotifyCreatedWorkItem($this->user,$this->project,$this->workItem, $notifiable);
 
+        return $emailMessage->to($notifiable->email, $notifiable->name);
     }
     
     /**
