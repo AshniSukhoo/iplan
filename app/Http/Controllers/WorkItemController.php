@@ -91,11 +91,11 @@ class WorkItemController extends Controller
     {
         //set validations rules
         $this->validate($request, [
-            'new_work_item_title' => 'required',
-            'new_work_item_description' => 'required',
+            'new_work_item_title'          => 'required',
+            'new_work_item_description'    => 'required',
             'new_work_item_estimated_time' => 'required',
-            'new_work_item_type' => 'required',
-            'new_work_item_priority' => 'required'
+            'new_work_item_type'           => 'required',
+            'new_work_item_priority'       => 'required',
         ]);
 
         if ($request->input('new_work_item_assigned_user') != '') {
@@ -112,16 +112,15 @@ class WorkItemController extends Controller
 
         // Saving data inputted
         $workitem = WorkItem::create([
-            'title' => $request->input('new_work_item_title'),
-            'description' => $request->input('new_work_item_description'),
+            'title'          => $request->input('new_work_item_title'),
+            'description'    => $request->input('new_work_item_description'),
             'estimated_time' => $request->input('new_work_item_estimated_time'),
-            'type' => $request->input('new_work_item_type'),
-            'priority' => $request->input('new_work_item_priority'),
-
-            'user_id' => Auth::user()->id,
-            'project_id' => $project_id,
-            'assigned_user_id' => $assingedUser->id,
-            'parent_id' => $parentId
+            'type'           => $request->input('new_work_item_type'),
+            'priority'       => $request->input('new_work_item_priority'),
+            'user_id'          => Auth::user()->id,
+            'project_id'       => $project_id,
+            'assigned_user_id' => $assingedUser ? $assingedUser->id : null,
+            'parent_id'        => $parentId,
         ]);
 
         //get project
@@ -201,11 +200,11 @@ class WorkItemController extends Controller
     {
         // Set validations rules
         $this->validate($request, [
-            'work_item_title' => 'required',
-            'work_item_description' => 'required',
+            'work_item_title'          => 'required',
+            'work_item_description'    => 'required',
             'work_item_estimated_time' => 'required',
-            'work_item_type' => 'required',
-            'work_item_priority' => 'required'
+            'work_item_type'           => 'required',
+            'work_item_priority'       => 'required',
         ]);
 
         if ($request->input('work_item_assigned_user') != '') {
@@ -228,22 +227,21 @@ class WorkItemController extends Controller
 
         // Check if assigned User has changed.
         $assignedUserHasChanged = false;
-        if (!is_null($assingedUser) && !$workItem->assignedUser->is($assingedUser)) {
+        if (is_null($workItem->assignedUser) || (!is_null($assingedUser) && !$workItem->assignedUser->is($assingedUser))) {
             $assignedUserHasChanged = true;
         }
 
         $workItemWasUpdated = $workItem->update([
-            'title' => $request->input('work_item_title'),
-            'description' => $request->input('work_item_description'),
-            'estimated_time' => $request->input('work_item_estimated_time'),
-            'type' => $request->input('work_item_type'),
-            'priority' => $request->input('work_item_priority'),
-            'status' => $request->input('work_item_status'),
-
-            'user_id' => Auth::user()->id,
-            'project_id' => $project_id,
-            'assigned_user_id' => $assingedUser->id,
-            'parent_id' => $parentId
+            'title'            => $request->input('work_item_title'),
+            'description'      => $request->input('work_item_description'),
+            'estimated_time'   => $request->input('work_item_estimated_time'),
+            'type'             => $request->input('work_item_type'),
+            'priority'         => $request->input('work_item_priority'),
+            'status'           => $request->input('work_item_status'),
+            'user_id'          => Auth::user()->id,
+            'project_id'       => $project_id,
+            'assigned_user_id' => $assingedUser ? $assingedUser->id : null,
+            'parent_id'        => $parentId,
         ]);
 
         // Check if work item has assigned user
@@ -251,11 +249,11 @@ class WorkItemController extends Controller
             if($assignedUserHasChanged) {
                 // Notify User.
                 $assingedUser->notify(
-                    new AssignWorkItemToMember(Auth::user(), $project, $workItem)
+                    new AssignWorkItemToMember(Auth::user(), $project, $workItem->fresh())
                 );
             } else {
                 $assingedUser->notify(
-                    new UpdatedWorkItem(Auth::user(), $project, $workItem)
+                    new UpdatedWorkItem(Auth::user(), $project, $workItem->fresh())
                 );
             }
         }

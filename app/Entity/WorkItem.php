@@ -19,6 +19,7 @@ class WorkItem extends Model
         'title',
         'type',
         'priority',
+        'status',
         'estimated_time',
         'parent_id',
         'description'

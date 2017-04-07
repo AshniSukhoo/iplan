@@ -28,8 +28,8 @@
                                 <li role="presentation">
                                     <a href="">
                                         <i class="fa fa-indent" aria-hidden="true"></i>
-                                       Type:
-                                       {{ $workitem->type}}
+                                        Type:
+                                        {{ $workitem->type}}
                                     </a>
                                 </li>
 
@@ -58,12 +58,14 @@
                                     </a>
                                 </li>
 
-                                <li role="presentation">
-                                    <a href="{{ route('profile.show', ['user' => $workitem->assignedUser->id]) }}">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                        Assigned to: {{ $workitem->assignedUser->full_name }}
-                                    </a>
-                                </li>
+                                @if(!is_null($workitem->assignedUser))
+                                    <li role="presentation">
+                                        <a href="{{ route('profile.show', ['user' => $workitem->assignedUser->id]) }}">
+                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                            Assigned to: {{ $workitem->assignedUser->full_name }}
+                                        </a>
+                                    </li>
+                                @endif
 
                                 <li role="presentation">
                                     <a href="">
@@ -120,28 +122,28 @@
 
                     <div class="panel-body">
                         @can('modify', [$workitem, $project])
-                        <div class="col-md-3 ">
-                            <a class="btn btn-primary btn-block"
-                               href="{{ route('work-items.edit', ['project_id' => $project->id, 'work-item_id' => $workitem->id  ]) }}">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                Edit Work item
-                            </a>
-                        </div>
+                            <div class="col-md-3 ">
+                                <a class="btn btn-primary btn-block"
+                                   href="{{ route('work-items.edit', ['project_id' => $project->id, 'work-item_id' => $workitem->id  ]) }}">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    Edit Work item
+                                </a>
+                            </div>
 
-                        <div class="col-md-3">
-                            <form onsubmit="return confirm('Are you sure you want to delete this work item ?')"
-                                  action="{{ route('work-items.destroy', ['project_id'=>$project->id, 'id' => $workitem->id  ]) }}"
-                                  method="POST">
-                                {{ method_field('DELETE') }}
+                            <div class="col-md-3">
+                                <form onsubmit="return confirm('Are you sure you want to delete this work item ?')"
+                                      action="{{ route('work-items.destroy', ['project_id'=>$project->id, 'id' => $workitem->id  ]) }}"
+                                      method="POST">
+                                    {{ method_field('DELETE') }}
 
-                                {{ csrf_field() }}
+                                    {{ csrf_field() }}
 
-                                <button type="submit" class="btn btn-danger btn-block">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    Delete
-                                </button>
-                            </form>
-                        </div>
+                                    <button type="submit" class="btn btn-danger btn-block">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
                         @endcan
                     </div>
                     <!--/.panel-body-->
